@@ -12,5 +12,15 @@ router.get("/", (req, res) => {
       res.sendStatus(500);
     });
 });
-
+router.post("/", (req, res) => {
+  // GET route code here
+  const queryText = `INSERT INTO `;
+  pool
+    .query(queryText, [req.params.id])
+    .then((result) => res.send(result.rows))
+    .catch((err) => {
+      console.log(`error in get one wall with`, err);
+      res.sendStatus(500);
+    });
+});
 module.exports = router;

@@ -4,6 +4,7 @@ import axios from "axios";
 function* postPanel(action) {
   const panel = action.payload;
   try {
+    console.log(panel);
     yield axios.post("/api/panel", panel);
     yield put({ type: "FETCH_PANEL", payload: panel.data[0] });
   } catch (err) {

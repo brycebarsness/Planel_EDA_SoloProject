@@ -17,7 +17,7 @@ router.get("/:id", (req, res) => {
 router.post("/addWall", (req, res) => {
   // POST route code here
   console.log(req.body);
-  const queryText = `INSERT INTO "wall" (job_id, length )
+  const queryText = `INSERT INTO "wall" ("job_id", "length" )
     VALUES ($1, $2 ) RETURNING "id";`;
   pool
     .query(queryText, [req.body.job_id, req.body.length])

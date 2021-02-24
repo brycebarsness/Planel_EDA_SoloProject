@@ -7,6 +7,14 @@ import {
   Button,
   makeStyles,
   Checkbox,
+  Grid,
+  FormControl,
+  FormGroup,
+  FormLabel,
+  FormControlLabel,
+  RadioGroup,
+  Radio,
+  ButtonGroup,
 } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,10 +31,9 @@ function jobInput(props) {
   // Using hooks we're creating local state for a "heading" variable with
   // a default value of 'Functional Component'
   const classes = useStyles();
-  const panels = useSelector((state) => state.setPanelReducer);
   const newJob = useSelector((state) => state.setOneJobReducer);
-  const newWall = useSelector((state) => state.setOneWallReducer);
-  const [isChecked, setIsChecked] = useState(panels.slice().fill(false));
+
+  // const [isChecked, setIsChecked] = useState(panels.slice().fill(false));
   const [jobToAdd, setJobToAdd] = useState({
     user_id: "",
     contractor: "",
@@ -42,20 +49,7 @@ function jobInput(props) {
     comments: "",
     finish_date: "",
   });
-  const [wallToAdd, setWallToAdd] = useState({
-    job_id: "",
-    length: "",
-  });
-  const [wall_PanelToAdd, setWall_PanelToAdd] = useState({
-    wall_id: "",
-    panel_id: "",
-    quantity: "",
-  });
-  const [panelToAdd, setPanelToAdd] = useState({
-    panel_length: "",
-  });
 
-  const [anchorEl, setAnchorEl] = useState(null);
   const dispatch = useDispatch();
 
   useEffect(() => dispatch({ type: "FETCH_PANEL" }), []);
@@ -106,62 +100,13 @@ function jobInput(props) {
     });
   }
 
-  function handlePanelSubmit(event) {
-    if (panelToAdd.panel_length) {
-      event.preventDefault();
-      dispatch({
-        type: "POST_PANEL",
-        payload: { ...panelToAdd },
-      });
-      setPanelToAdd({
-        panel_length: "",
-      });
-    }
-  }
-
-  function handleWallSubmit(event) {
-    if (wallToAdd.length) {
-      event.preventDefault();
-
-      dispatch({
-        type: "POST_NEW_WALL",
-        payload: { ...wallToAdd },
-      });
-
-      setWallToAdd({
-        length: "",
-      });
-    } else {
-      alert("Please select wall length");
-    }
-  }
-
   const handleJobTextChange = (key) => (event) => {
     setJobToAdd({ ...jobToAdd, [key]: event.target.value });
-  };
-  const handleWallChange = (key) => (event) => {
-    setWallToAdd({ ...wallToAdd, [key]: event.target.value });
-  };
-  const handleWall_PanelChange = (key) => (event) => {
-    setWall_PanelToAdd({ ...wall_PanelToAdd, [key]: event.target.value });
-  };
-  const handlePanelMenu = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const [heading, setHeading] = useState("Job Input Page");
-
-  const toggleCheckedPanel = (index, id) => {
-    setIsChecked(isChecked.map((check, i) => (i === index ? !check : check)));
-    if (panelToAdd.indexOf(id) === -1) {
-      setPanelToAdd(id);
-    } else {
-      setPanelToAdd(panelToAdd.filter((item) => item !== id));
-    }
   };
 
   return (
     <div>
-      <h2>{heading}</h2>
+      <h2></h2>
       <>
         <p>Enter Job Info Below</p>
         <form
@@ -260,33 +205,85 @@ function jobInput(props) {
           onSubmit={handlePanelSubmit}
           autoComplete="off"
         >
-          <Button variant="outlined" color="error" onClick={handlePanelMenu}>
+          {/* <Button variant="outlined" color="error" onClick={handlePanelMenu}>
             Select Panel Size
-          </Button>
-          <Menu
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={() => setAnchorEl(null)}
-          >
-            {panels.map((panelItem, i) => {
-              return (
-                <MenuItem key={panelItem.id}>
-                  <Checkbox
-                    key={i}
-                    checked={isChecked[i]}
-                    onClick={() => toggleCheckedPanel(i, panelItem.id)}
-                  />
-                  {panelItem.name}
-                </MenuItem>
-              );
-            })}
-          </Menu>
+          </Button> */}
+
+          <ButtonGroup>
+            <Button
+              className="inputButton"
+              onClick={() => dispatch({ type: "POST_PANEL", payload: 36 })}
+            >
+              36
+            </Button>
+            <Button
+              className="inputButton"
+              onClick={() => dispatch({ type: "POST_PANEL", payload: 30 })}
+            >
+              30
+            </Button>
+            <Button
+              className="inputButton"
+              onClick={() => dispatch({ type: "POST_PANEL", payload: 28 })}
+            >
+              28
+            </Button>
+            <Button
+              className="inputButton"
+              onClick={() => dispatch({ type: "POST_PANEL", payload: 24 })}
+            >
+              24
+            </Button>
+            <Button
+              className="inputButton"
+              onClick={() => dispatch({ type: "POST_PANEL", payload: 20 })}
+            >
+              20
+            </Button>
+            <Button
+              className="inputButton"
+              onClick={() => dispatch({ type: "POST_PANEL", payload: 14 })}
+            >
+              14
+            </Button>
+            <Button
+              className="inputButton"
+              onClick={() => dispatch({ type: "POST_PANEL", payload: 8 })}
+            >
+              8
+            </Button>
+            <Button
+              className="inputButton"
+              onClick={() => dispatch({ type: "POST_PANEL", payload: 4 })}
+            >
+              4
+            </Button>
+            <Button
+              className="inputButton"
+              onClick={() => dispatch({ type: "POST_PANEL", payload: 2 })}
+            >
+              2
+            </Button>
+          </ButtonGroup>
+
           <TextField
             variant="outlined"
             label="quantity"
             onChange={handleWall_PanelChange("quantity")}
             value={wall_PanelToAdd.length}
+          />
+
+          <TextField
+            variant="outlined"
+            label="user_id"
+            onChange={handleWall_PanelChange("wall_id")}
+            value={wall_PanelToAdd.wall_id}
+          />
+          <TextField
+            variant="outlined"
+            label="user_id"
+            onChange={handleWall_PanelChange("panel_id")}
+            value={wall_PanelToAdd.panel_id}
           />
           <Button variant="outlined" type="submit" color="error">
             Submit
@@ -304,6 +301,12 @@ function jobInput(props) {
             label="length"
             onChange={handleWallChange("length")}
             value={wallToAdd.length}
+          />
+          <TextField
+            variant="outlined"
+            label="job_id"
+            onChange={handleWallChange("job_id")}
+            value={wallToAdd.job_id}
           />
           <Button variant="outlined" type="submit" color="error">
             Submit
