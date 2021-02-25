@@ -1,10 +1,33 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
-
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  TextField,
+  Menu,
+  MenuItem,
+  Button,
+  makeStyles,
+  Checkbox,
+  Grid,
+  FormControl,
+  FormGroup,
+  FormLabel,
+  FormControlLabel,
+  RadioGroup,
+  Radio,
+  ButtonGroup,
+} from "@material-ui/core";
+const useStyles = makeStyles((theme) => ({
+  root: {
+    "& > *": {
+      margin: theme.spacing(2),
+      width: "50vw",
+    },
+  },
+}));
 function PanelInput(props) {
   const dispatch = useDispatch();
   useEffect(() => dispatch({ type: "FETCH_PANEL" }), []);
-
+  const classes = useStyles();
   const store = useSelector((store) => store);
 
   const [panelToAdd, setPanelToAdd] = useState("");
@@ -28,7 +51,7 @@ function PanelInput(props) {
 
   return (
     <div>
-      <h2>{heading}</h2>
+      <h2> </h2>
 
       <p>Enter Panel Info Below</p>
       <form
@@ -93,25 +116,6 @@ function PanelInput(props) {
           </Button>
         </ButtonGroup>
 
-        <TextField
-          variant="outlined"
-          label="quantity"
-          onChange={handleWall_PanelChange("quantity")}
-          value={wall_PanelToAdd.length}
-        />
-
-        <TextField
-          variant="outlined"
-          label="user_id"
-          onChange={handleWall_PanelChange("wall_id")}
-          value={wall_PanelToAdd.wall_id}
-        />
-        <TextField
-          variant="outlined"
-          label="user_id"
-          onChange={handleWall_PanelChange("panel_id")}
-          value={wall_PanelToAdd.panel_id}
-        />
         <Button variant="outlined" type="submit" color="error">
           Submit
         </Button>
