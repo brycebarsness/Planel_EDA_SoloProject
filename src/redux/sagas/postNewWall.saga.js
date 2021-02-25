@@ -5,7 +5,7 @@ function* postNewWall(action) {
   const newWall = action.payload;
   try {
     yield axios.post("/api/wall/addWall", newWall);
-    yield put({ type: "FETCH_ONE_WALL", payload: wall.data[0] });
+    yield put({ type: "FETCH_ONE_WALL", payload: newWall });
   } catch (err) {
     console.log("error in postNewWall", err);
   }

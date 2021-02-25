@@ -1,6 +1,9 @@
 const express = require("express");
 const pool = require("../modules/pool");
 const router = express.Router();
+const {
+  rejectUnauthenticated,
+} = require("../modules/authentication-middleware");
 
 /**
  * GET route template
@@ -27,7 +30,7 @@ router.get("/:id", (req, res) => {
     });
 });
 
-router.post("/addjob", (req, res) => {
+router.post("/addjob", rejectUnauthenticated, (req, res) => {
   // POST route code here
   console.log(req.body);
   const queryText = `INSERT INTO "job" ("user_id", "contractor", 
@@ -38,7 +41,7 @@ router.post("/addjob", (req, res) => {
     $9, $10, $11, $12, $13 ) RETURNING "id";`;
   pool
     .query(queryText, [
-      req.body.user_id,
+      req.user.id,
       req.body.contractor,
       req.body.street_address,
       req.body.city,
@@ -57,9 +60,9 @@ router.post("/addjob", (req, res) => {
       console.log("New Job Id:", createdJobId);
       const queryText = `SELECT * FROM "job" WHERE "id" = $1`;
       pool
-        .query(queryText, [req.params.id])
+        .query(queryText, [createdJobId])
         .then((result) => {
-          res.send(result.rows);
+          res.send(result.rows[0]);
         })
         .catch((err) => {
           console.log(`error in get oneJob with`, err);

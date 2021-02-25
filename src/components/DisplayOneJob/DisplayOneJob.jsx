@@ -35,7 +35,26 @@ function DisplayOneJob() {
   return (
     <div>
       <h2></h2>
-      <p>{newJob.zip}</p>
+      <table>
+        <tbody>
+          <tr>
+            <td>{newJob.id}</td>
+            <td>{newJob.user_id}</td>
+            <td>{newJob.contractor}</td>
+            <td>{newJob.street_address}</td>
+            <td>{newJob.city}</td>
+            <td>{newJob.state}</td>
+            <td>{newJob.zip}</td>
+            <td>{newJob.start_date}</td>
+            <td>{newJob.outside_corners}</td>
+            <td>{newJob.inside_corners}</td>
+            <td>{newJob.status}</td>
+            <td>{newJob.complete}</td>
+            <td>{newJob.comments}</td>
+            <td>{newJob.finish_date}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 }

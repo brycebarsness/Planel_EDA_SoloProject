@@ -25,10 +25,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 function WallInput(props) {
-  const newJob = useSelector((state) => state.setOneJobReducer);
+  const newJob = useSelector((store) => store.setOneJobReducer);
   const classes = useStyles();
+  console.log(newJob);
   const [wallToAdd, setWallToAdd] = useState({
-    job_id: newJob.job_id,
+    job_id: newJob.id,
     length: "",
   });
   const dispatch = useDispatch();
@@ -37,7 +38,7 @@ function WallInput(props) {
       event.preventDefault();
       dispatch({
         type: "POST_NEW_WALL",
-        payload: { ...wallToAdd },
+        payload: wallToAdd,
       });
       setWallToAdd({
         length: "",
