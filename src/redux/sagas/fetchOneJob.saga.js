@@ -3,6 +3,7 @@ import axios from "axios";
 
 function* fetchOneJob(action) {
   const id = action.payload;
+  console.log(action.payload, "XXXXXXXXXXXXX");
   try {
     yield axios.get(`/api/job/${id}`);
     yield put({ type: "SET_ONE_JOB", payload: job.data[0] });

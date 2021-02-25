@@ -4,8 +4,9 @@ import { put, takeLatest } from "redux-saga/effects";
 function* postNewJob(action) {
   const newJob = action.payload;
   try {
+    console.log(newJob);
     yield axios.post("/api/job/addjob", newJob);
-    yield put({ type: "FETCH_ONE_JOB", payload: job.data[0] });
+    yield put({ type: "SET_ONE_JOB", payload: newJob });
   } catch (err) {
     console.log("error in postNewJob", err);
   }

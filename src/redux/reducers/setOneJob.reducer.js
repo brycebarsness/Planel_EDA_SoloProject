@@ -1,4 +1,4 @@
-const setOneJobReducer = (state = {}, action) => {
+const setOneJobReducer = (state = [], action) => {
   switch (action.type) {
     case "SET_ONE_JOB":
       return action.payload;

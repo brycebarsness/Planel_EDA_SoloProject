@@ -32,10 +32,11 @@ function jobInput(props) {
   // a default value of 'Functional Component'
   const classes = useStyles();
   const newJob = useSelector((state) => state.setOneJobReducer);
+  const user = useSelector((store) => store.user.id);
 
   // const [isChecked, setIsChecked] = useState(panels.slice().fill(false));
   const [jobToAdd, setJobToAdd] = useState({
-    user_id: "",
+    user_id: user,
     contractor: "",
     street_address: "",
     city: "",
@@ -84,7 +85,6 @@ function jobInput(props) {
   }
   function clearJobForm() {
     setJobToAdd({
-      user_id: "",
       contractor: "",
       street_address: "",
       city: "",
@@ -114,12 +114,12 @@ function jobInput(props) {
           onSubmit={handleJobSubmit}
           autoComplete="off"
         >
-          <TextField
+          {/* <TextField
             variant="outlined"
             label="user_id"
             onChange={handleJobTextChange("user_id")}
             value={jobToAdd.user_id}
-          />
+          /> */}
           <TextField
             variant="outlined"
             label="contractor"

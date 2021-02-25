@@ -31,10 +31,9 @@ function WallInput(props) {
     job_id: newJob.job_id,
     length: "",
   });
-
+  const dispatch = useDispatch();
   function handleWallSubmit(event) {
-    const dispatch = useDispatch();
-    if (wallToAdd.length) {
+    if (wallToAdd) {
       event.preventDefault();
       dispatch({
         type: "POST_NEW_WALL",
