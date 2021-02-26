@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {
   TextField,
   Menu,
@@ -32,6 +32,9 @@ function DisplayOneJob() {
   // a default value of 'Functional Component'
   const store = useSelector((store) => store);
   const newJob = useSelector((state) => state.setOneJobReducer);
+  const dispatch = useDispatch();
+  useEffect(() => dispatch({ type: "FETCH_ALL_JOBS" }), []);
+  const displayAllJob = useSelector((state) => state.setAllJobsReducer);
   return (
     <div>
       <h2></h2>
@@ -55,6 +58,18 @@ function DisplayOneJob() {
           </tr>
         </tbody>
       </table>
+
+      <h3>Click Job For Details</h3>
+
+      {displayAllJob.map((job) => {
+        return (
+          <div key={job.id}>
+            <p>{job.zip}</p>
+
+            <span onClick={() => handleClickPoster(job.id)} />
+          </div>
+        );
+      })}
     </div>
   );
 }

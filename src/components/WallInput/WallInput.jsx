@@ -38,7 +38,10 @@ function WallInput(props) {
       event.preventDefault();
       dispatch({
         type: "POST_NEW_WALL",
-        payload: wallToAdd,
+        payload: {
+          job_id: newJob.id,
+          length: wallToAdd.length,
+        },
       });
       setWallToAdd({
         length: "",

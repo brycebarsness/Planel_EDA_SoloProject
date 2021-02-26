@@ -59,7 +59,6 @@ function jobInput(props) {
 
   function handleJobSubmit(event) {
     if (
-      jobToAdd.user_id &&
       jobToAdd.contractor &&
       jobToAdd.street_address &&
       jobToAdd.city &&

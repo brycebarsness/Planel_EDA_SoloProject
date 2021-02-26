@@ -9,6 +9,7 @@ import fetchOneWallSaga from "./fetchOneWall.saga";
 import fetchPanelSaga from "./fetchPanel.saga";
 import postPanelSaga from "./postPanel.saga";
 import fetchWallPanelSaga from "./fetchWallPanel.saga";
+import fetchAllJobsSaga from "./fetchAllJobs.saga";
 import postWallPanelSaga from "./postWallPanel.saga";
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -27,6 +28,7 @@ export default function* rootSaga() {
     postNewWallSaga(),
     fetchOneJobSaga(),
     postNewJobSaga(),
+    fetchAllJobsSaga(),
     loginSaga(), // login saga is now registered
     registrationSaga(),
     userSaga(),

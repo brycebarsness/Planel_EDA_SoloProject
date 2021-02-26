@@ -26,9 +26,9 @@ router.post("/addWall", (req, res) => {
       console.log("New Wall Id:", createdWallId);
       const queryText = `SELECT * FROM "wall" WHERE "id" = $1`;
       pool
-        .query(queryText, [req.params.id])
+        .query(queryText, [createdWallId])
         .then((result) => {
-          res.send(result.rows);
+          res.send(result.rows[0]);
         })
         .catch((err) => {
           console.log(`error in post Wall with`, err);

@@ -18,11 +18,11 @@ const {
 // router.post("/", (req, res) => {
 //   // POST route code here
 // });
-router.get("/:id", (req, res) => {
+router.get("/", (req, res) => {
   // GET route code here
-  const queryText = `SELECT * FROM "job" WHERE "id" = $1`;
+  const queryText = `SELECT * FROM "job"`;
   pool
-    .query(queryText, [req.params.id])
+    .query(queryText)
     .then((result) => res.send(result.rows))
     .catch((err) => {
       console.log(`error in get oneJob with`, err);
