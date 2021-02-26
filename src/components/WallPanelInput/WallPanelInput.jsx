@@ -25,27 +25,31 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 function WallPanelInput(props) {
-  const panels = useSelector((state) => state.setPanelReducer);
   const newWall = useSelector((state) => state.setOneWallReducer);
   const classes = useStyles();
+  const [panelToAdd, setPanelToAdd] = useState("");
+
   const [wall_PanelToAdd, setWall_PanelToAdd] = useState({
-    wall_id: newWall,
-    panel_id: panels,
+    wall_id: newWall.id,
+    panel_id: panelToAdd,
     quantity: "",
   });
   const handleWall_PanelChange = (key) => (event) => {
     setWall_PanelToAdd({ ...wall_PanelToAdd, [key]: event.target.value });
   };
-
+  const dispatch = useDispatch();
   function handleWallPanelSubmit(event) {
-    const dispatch = useDispatch();
     if (wall_PanelToAdd.quantity) {
       event.preventDefault();
       dispatch({
         type: "POST_WALL_PANEL",
-        payload: { ...wall_PanelToAdd },
+        payload: {
+          wall_id: newWall.id,
+          panel_id: panelToAdd,
+          quantity: wall_PanelToAdd.quantity,
+        },
       });
-      setWallPanelToAdd({
+      setWall_PanelToAdd({
         quantity: "",
       });
     } else {
@@ -59,6 +63,42 @@ function WallPanelInput(props) {
         onSubmit={handleWallPanelSubmit}
         autoComplete="off"
       >
+        <p>Enter Panel Info Below</p>
+
+        <ButtonGroup>
+          <Button className="inputButton" onClick={() => setPanelToAdd(1)}>
+            36
+          </Button>
+          <Button className="inputButton" onClick={() => setPanelToAdd(2)}>
+            30
+          </Button>
+          <Button className="inputButton" onClick={() => setPanelToAdd(3)}>
+            24
+          </Button>
+          <Button className="inputButton" onClick={() => setPanelToAdd(4)}>
+            18
+          </Button>
+          <Button className="inputButton" onClick={() => setPanelToAdd(5)}>
+            12
+          </Button>
+          <Button className="inputButton" onClick={() => setPanelToAdd(6)}>
+            8
+          </Button>
+          <Button className="inputButton" onClick={() => setPanelToAdd(7)}>
+            6
+          </Button>
+          <Button className="inputButton" onClick={() => setPanelToAdd(8)}>
+            4
+          </Button>
+          <Button className="inputButton" onClick={() => setPanelToAdd(9)}>
+            2
+          </Button>
+          <Button className="inputButton" onClick={() => setPanelToAdd(9)}>
+            1
+          </Button>
+        </ButtonGroup>
+
+        <p>Panel Length: {panelToAdd}</p>
         <TextField
           variant="outlined"
           label="quantity"

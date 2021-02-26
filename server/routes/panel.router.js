@@ -14,7 +14,7 @@ router.get("/", (req, res) => {
 });
 router.post("/", (req, res) => {
   // GET route code here
-  const queryText = `INSERT INTO `;
+  const queryText = `INSERT INTO "panel"`;
   pool
     .query(queryText, [req.params.id])
     .then((result) => res.send(result.rows))

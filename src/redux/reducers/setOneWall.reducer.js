@@ -1,7 +1,7 @@
 const setOneWallReducer = (state = {}, action) => {
   switch (action.type) {
     case "SET_ONE_WALL":
-      return action.payload;
+      return action.payload.data;
     default:
       return state;
   }

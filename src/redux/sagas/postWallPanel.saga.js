@@ -4,8 +4,8 @@ import axios from "axios";
 function* postWallPanel(action) {
   const wallPanel = action.payload;
   try {
-    yield axios.post("/api/wallPanel", wallPanel);
-    yield put({ type: "FETCH_WALL_PANEL", payload: wallPanel.data[0] });
+    const createdWall_Panel = yield axios.post("/api/wallPanel", wallPanel);
+    yield put({ type: "SET_WALL_PANEL", payload: createdWall_Panel.data });
   } catch (err) {
     console.log("error in post wallPanel", err);
   }
