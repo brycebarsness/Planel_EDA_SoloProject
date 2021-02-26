@@ -39,29 +39,33 @@ function Dashboard(props) {
 
   const displayAllJob = useSelector((state) => state.setAllJobsReducer);
   const [heading, setHeading] = useState(displayAllJob.length);
+
   return (
     <div class={classes.root}>
       <h2>Total Jobs: {heading} </h2>
       {/* <h3 className={classes.root}> Click Job For Details</h3> */}
 
       <table>
-        <tr>
-          <th>Job Number</th>
-          <th>User Id</th>
-          <th>Contractor</th>
-          <th>Street Address</th>
-          <th>City</th>
-          <th>State</th>
-          <th>Zip Code</th>
-          <th>Start Date </th>
-          <th>Outside Corners</th>
-          <th>Inside Corners</th>
-          <th>Status</th>
-          <th>Complete</th>
-          <th>Comments</th>
-          <th>Finish Date</th>
-        </tr>
-        {displayAllJob.map((job) => {
+        <thead>
+          <tr>
+            <th>Job Number</th>
+            <th>User Id</th>
+            <th>Contractor</th>
+            <th>Street Address</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Zip Code</th>
+            <th>Start Date </th>
+            <th>Outside Corners</th>
+            <th>Inside Corners</th>
+            <th>Status</th>
+            <th>Complete</th>
+            <th>Comments</th>
+            <th>Finish Date</th>
+          </tr>
+        </thead>
+
+        {displayAllJob.map((job) => (
           <tr key={job.id}>
             <td>{job.id}</td>
             <td>{job.user_id}</td>
@@ -81,8 +85,8 @@ function Dashboard(props) {
             <td>
               <Moment format="YYYY/MM/DD">{job.finish_date}</Moment>
             </td>
-          </tr>;
-        })}
+          </tr>
+        ))}
       </table>
     </div>
   );
