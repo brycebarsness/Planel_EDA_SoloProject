@@ -16,8 +16,8 @@ function InputPage(props) {
 
   return (
     <div>
-      <DisplayOneJob />
       <JobInput />
+      <DisplayOneJob />
       <WallInput />
       {/* <PanelInput /> */}
       <WallPanelInput />

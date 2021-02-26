@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import Moment from "react-moment";
 import {
   TextField,
   Menu,
@@ -34,12 +35,29 @@ function DisplayOneJob() {
   const newJob = useSelector((state) => state.setOneJobReducer);
   const dispatch = useDispatch();
   useEffect(() => dispatch({ type: "FETCH_ALL_JOBS" }), []);
-  const displayAllJob = useSelector((state) => state.setAllJobsReducer);
+  const displayOneWall = useSelector((state) => state.setOneWallReducer);
+
   return (
     <div>
       <h2></h2>
       <table>
         <tbody>
+          <tr>
+            <td>Job Number</td>
+            <td>User Id</td>
+            <td>Contractor</td>
+            <td>Street Address</td>
+            <td>City</td>
+            <td>State</td>
+            <td>Zip Code</td>
+            <td>Start Date </td>
+            <td>Outside Corners</td>
+            <td>Inside Corners</td>
+            <td>Status</td>
+            <td>Complete</td>
+            <td>Comments</td>
+            <td>Finish Date</td>
+          </tr>
           <tr>
             <td>{newJob.id}</td>
             <td>{newJob.user_id}</td>
@@ -48,28 +66,24 @@ function DisplayOneJob() {
             <td>{newJob.city}</td>
             <td>{newJob.state}</td>
             <td>{newJob.zip}</td>
-            <td>{newJob.start_date}</td>
+
+            <Moment format="YYYY/MM/DD">
+              <td>{newJob.start_date}</td>
+            </Moment>
+
             <td>{newJob.outside_corners}</td>
             <td>{newJob.inside_corners}</td>
             <td>{newJob.status}</td>
             <td>{newJob.complete}</td>
             <td>{newJob.comments}</td>
-            <td>{newJob.finish_date}</td>
+            <td>
+              <Moment format="YYYY/MM/DD">{newJob.finish_date}</Moment>
+            </td>
           </tr>
         </tbody>
       </table>
 
-      <h3>Click Job For Details</h3>
-
-      {displayAllJob.map((job) => {
-        return (
-          <div key={job.id}>
-            <p>{job.zip}</p>
-
-            <span onClick={() => handleClickPoster(job.id)} />
-          </div>
-        );
-      })}
+      <p>New Wall Length: {displayOneWall.length}</p>
     </div>
   );
 }
