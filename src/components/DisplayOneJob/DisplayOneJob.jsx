@@ -34,6 +34,7 @@ function DisplayOneJob() {
   const store = useSelector((store) => store);
   const newJob = useSelector((state) => state.setOneJobReducer);
   const dispatch = useDispatch();
+  useEffect(() => dispatch({ type: "FETCH_ALL_JOBS" }), []);
   // displayWall;
   const displayOneWall = useSelector((state) => state.setOneWallReducer);
   const displayWallPanel = useSelector((state) => state.setWallPanelReducer);
