@@ -28,37 +28,35 @@ const useStyles = makeStyles((theme) => ({
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
 // component name TemplateFunction with the name for the new component.
-function DisplayOneJob() {
+function DetailsPage() {
   // Using hooks we're creating local state for a "heading" variable with
   // a default value of 'Functional Component'
   const store = useSelector((store) => store);
   const newJob = useSelector((state) => state.setOneJobReducer);
   const dispatch = useDispatch();
-  // displayWall;
+  useEffect(() => dispatch({ type: "FETCH_ONE_JOB" }), []);
   const displayOneWall = useSelector((state) => state.setOneWallReducer);
   const displayWallPanel = useSelector((state) => state.setWallPanelReducer);
-  const displayWallPanels = useSelector((state) => state.setWallPanelsReducer);
   return (
     <div>
       <h2></h2>
       <table>
-        <caption>Current Job Information</caption>
         <tbody>
           <tr>
-            <th>Job Number</th>
-            <th>User Id</th>
-            <th>Contractor</th>
-            <th>Street Address</th>
-            <th>City</th>
-            <th>State</th>
-            <th>Zip Code</th>
-            <th>Start Date </th>
-            <th>Outside Corners</th>
-            <th>Inside Corners</th>
-            <th>Status</th>
-            <th>Complete</th>
-            <th>Comments</th>
-            <th>Finish Date</th>
+            <td>Job Number</td>
+            <td>User Id</td>
+            <td>Contractor</td>
+            <td>Street Address</td>
+            <td>City</td>
+            <td>State</td>
+            <td>Zip Code</td>
+            <td>Start Date </td>
+            <td>Outside Corners</td>
+            <td>Inside Corners</td>
+            <td>Status</td>
+            <td>Complete</td>
+            <td>Comments</td>
+            <td>Finish Date</td>
           </tr>
           <tr>
             <td>{newJob.id}</td>
@@ -86,56 +84,11 @@ function DisplayOneJob() {
       </table>
       <p>Current Wall Length: {displayOneWall.length}</p>
       <p>
-        <table>
-          <caption>Wall Length by Wall ID</caption>
-          <thead>
-            <tr>
-              <th>Wall ID</th>
-              <th>Length</th>
-              <th>UPDATE/DELETE</th>
-            </tr>
-          </thead>
-          {/* {displayOneWall.map((wall) => (
-            <tr key={wall.id}>
-              <td>{wall.id}</td>
-              <td>{wall.length}</td>
-            <td>
-                <button> UPDATE </button>
-                <button> DELETE </button>
-              </td>
-            </tr>
-          ))} */}
-        </table>
+        Current Panel Length/quantity: {displayWallPanel.panel_id}
+        {displayWallPanel.quantity}
       </p>
-      <p>
-        Current Panel Length: {displayWallPanel.panel_id}
-        Current Panel Quantity: {displayWallPanel.quantity}
-      </p>
-
-      <table>
-        <caption>Panel ID and Quantity by Wall ID</caption>
-        <thead>
-          <tr>
-            <th>Wall ID</th>
-            <th>Panel ID</th>
-            <th>Quantity</th>
-            <th>UPDATE/DELETE</th>
-          </tr>
-        </thead>
-        {displayWallPanels.map((wallPanel) => (
-          <tr key={wallPanel.id}>
-            <td>{wallPanel.wall_id}</td>
-            <td>{wallPanel.panel_id}</td>
-            <td>{wallPanel.quantity}</td>
-            <td>
-              <button> UPDATE </button>
-              <button> DELETE </button>
-            </td>
-          </tr>
-        ))}
-      </table>
     </div>
   );
 }
 
-export default DisplayOneJob;
+export default DetailsPage;

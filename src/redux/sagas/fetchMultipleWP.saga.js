@@ -1,18 +1,19 @@
 import { put, takeLatest } from "redux-saga/effects";
 import axios from "axios";
 
-function* fetchAllJobs() {
+function* fetchWallPanels() {
   try {
-    console.log("in fetchAllJ");
-    const allJobs = yield axios.get("/api/job");
-    console.log("GET from fetchAllJobs:", allJobs.data);
-    yield put({ type: "SET_ALL_JOBS", payload: allJobs.data });
+    console.log("in fetchWallPanels");
+    const wallPanels = yield axios.get(`/api/wallpanel/${id}`);
+    console.log("GET from fetchWallPanels", wallPanels.data);
+    yield put({ type: "SET_WALL_PANELS", payload: wallPanels.data });
   } catch (err) {
-    console.log("error in fetchAllJobs:", err);
+    console.log("error in fetchWallPanels:", err);
   }
 }
 
-function* fetchAllJobsSaga() {
-  yield takeLatest("FETCH_ALL_JOBS", fetchAllJobs);
+function* fetchWallPanelsSaga() {
+  yield takeLatest("FETCH_WALL_PANELS", fetchWallPanels);
 }
-export default fetchAllJobsSaga;
+
+export default fetchWallPanelsSaga;

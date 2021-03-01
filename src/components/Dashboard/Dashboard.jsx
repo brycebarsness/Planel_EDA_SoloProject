@@ -98,6 +98,7 @@ function Dashboard(props) {
     //  setIserror(true),
     []
   );
+  function handleDetails() {}
 
   var columns = [
     { title: "id", field: "id", hidden: true },
@@ -115,7 +116,54 @@ function Dashboard(props) {
     { title: "comments", field: "comments" },
     { title: "finish_date", field: "finish_date" },
   ];
-  const [data, setData] = useState([]); //table data
+  const [data, setData] = useState([displayAllJob]); //table data
+  const handleRowAdd = (newData, resolve) => {
+    //validation
+    // let errorList = [];
+    // if (newData.contractor === undefined) {
+    //   errorList.push("Please enter contractor");
+    // }
+    // if (newData.street_address === undefined) {
+    //   errorList.push("street_address");
+    // }
+    // if (newData.city === undefined) {
+    //   errorList.push("Please enter city");
+    // }
+    // if (errorList.length < 1) {
+    //no error
+
+    dispatch({
+      type: "POST_NEW_JOB",
+      payload: { ...newData },
+    });
+    let dataToAdd = [...data];
+    dataToAdd.push(newData);
+    setData(dataToAdd);
+    resolve();
+    // setErrorMessages([]);
+    // setIserror(false);
+    //   api
+    //     .post("/users", newData)
+    //     .then((res) => {
+    //       let dataToAdd = [...data];
+    //       dataToAdd.push(newData);
+    //       setData(dataToAdd);
+    //       resolve();
+    //       setErrorMessages([]);
+    //       setIserror(false);
+    //     })
+    //     .catch((error) => {
+    //       setErrorMessages(["Cannot add data. Server error!"]);
+    //       setIserror(true);
+    //       resolve();
+    //     });
+    // } else {
+    //   setErrorMessages(errorList);
+    //   setIserror(true);
+    //   resolve();
+    // }
+  };
+
   //for error handling
   const [iserror, setIserror] = useState(false);
   const [errorMessages, setErrorMessages] = useState([]);
@@ -161,6 +209,7 @@ function Dashboard(props) {
             <th>Complete</th>
             <th>Comments</th>
             <th>Finish Date</th>
+            {/* <th> Details/Edit</th> */}
           </tr>
         </thead>
 
@@ -184,6 +233,9 @@ function Dashboard(props) {
             <td>
               <Moment format="YYYY/MM/DD">{job.finish_date}</Moment>
             </td>
+            {/* <td>
+              <button onClick={handleDetails}>Details</button>
+            </td> */}
           </tr>
         ))}
       </table>

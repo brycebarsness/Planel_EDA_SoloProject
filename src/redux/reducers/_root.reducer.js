@@ -5,6 +5,7 @@ import setOneJobReducer from "./setOneJob.reducer";
 import setOneWallReducer from "./setOneWall.reducer";
 import setPanelReducer from "./setPanel.reducer";
 import setWallPanelReducer from "./setWallPanel.reducer";
+import setWallPanelsReducer from "./setWallPanels.reducer";
 import setAllJobsReducer from "./setAllJob.reducer";
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -15,6 +16,7 @@ import setAllJobsReducer from "./setAllJob.reducer";
 const rootReducer = combineReducers({
   setAllJobsReducer,
   setWallPanelReducer,
+  setWallPanelsReducer,
   setPanelReducer,
   setOneWallReducer,
   setOneJobReducer,
