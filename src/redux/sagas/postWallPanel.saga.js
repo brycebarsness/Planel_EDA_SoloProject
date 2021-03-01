@@ -5,7 +5,7 @@ function* postWallPanel(action) {
   const wallPanel = action.payload;
   try {
     const createdWall_Panel = yield axios.post("/api/wallPanel", wallPanel);
-    yield put({ type: "SET_WALL_PANEL", payload: createdWall_Panel.data });
+    yield put({ type: "SET_WALL_PANEL", payload: createdWall_Panel });
   } catch (err) {
     console.log("error in post wallPanel", err);
   }

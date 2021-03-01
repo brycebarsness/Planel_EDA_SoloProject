@@ -1,8 +1,8 @@
-const setWallPanelReducer = (state = [], action) => {
+const setWallPanelReducer = (state = {}, action) => {
   switch (action.type) {
     case "SET_WALL_PANEL":
       console.log("XXXXXXXXXXXXXXXXXXXXXX", action.payload);
-      return action.payload;
+      return action.payload.data;
     default:
       return state;
   }

@@ -36,7 +36,7 @@ function DisplayOneJob() {
   const dispatch = useDispatch();
   useEffect(() => dispatch({ type: "FETCH_ALL_JOBS" }), []);
   const displayOneWall = useSelector((state) => state.setOneWallReducer);
-
+  const displayWallPanel = useSelector((state) => state.setWallPanelReducer);
   return (
     <div>
       <h2></h2>
@@ -82,8 +82,11 @@ function DisplayOneJob() {
           </tr>
         </tbody>
       </table>
-
-      <p>New Wall Length: {displayOneWall.length}</p>
+      <p>Current Wall Length: {displayOneWall.length}</p>
+      <p>
+        Current Panel Length/quantity: {displayWallPanel.panel_id}
+        {displayWallPanel.quantity}
+      </p>
     </div>
   );
 }
