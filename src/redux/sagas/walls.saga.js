@@ -10,7 +10,18 @@ function* fetchOneWall(action) {
     console.log("error in fetchOneWall", err);
   }
 }
-function* fetchOneWallSaga() {
+
+function* postNewWall(action) {
+  const newWall = action.payload;
+  try {
+    const createdWall = yield axios.post("/api/wall/addWall", newWall);
+    yield put({ type: "SET_ONE_WALL", payload: createdWall });
+  } catch (err) {
+    console.log("error in postNewWall", err);
+  }
+}
+function* wallsSaga() {
+  yield takeLatest("POST_NEW_WALL", postNewWall);
   yield takeLatest("FETCH_ONE_WALL", fetchOneWall);
 }
-export default fetchOneWallSaga;
+export default wallsSaga;

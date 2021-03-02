@@ -2,14 +2,16 @@ import { all } from "redux-saga/effects";
 import loginSaga from "./login.saga";
 import registrationSaga from "./registration.saga";
 import userSaga from "./user.saga";
-import postNewJobSaga from "./postNewJob.saga";
-import fetchOneJobSaga from "./fetchOneJob.saga";
-import postNewWallSaga from "./postNewWall.saga";
-import fetchOneWallSaga from "./fetchOneWall.saga";
+import jobsSaga from "./jobs.saga.js";
+import wallsSaga from "./walls.saga.js";
+// import postNewJobSaga from "./postNewJob.saga";
+// import fetchOneJobSaga from "./fetchOneJob.saga";
+// import postNewWallSaga from "./postNewWall.saga";
+// import fetchOneWallSaga from "./fetchOneWall.saga";
 import fetchPanelSaga from "./fetchPanel.saga";
 import postPanelSaga from "./postPanel.saga";
 import fetchWallPanelSaga from "./fetchWallPanel.saga";
-import fetchAllJobsSaga from "./fetchAllJobs.saga";
+// import fetchAllJobsSaga from "./fetchAllJobs.saga";
 import postWallPanelSaga from "./postWallPanel.saga";
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -24,11 +26,13 @@ export default function* rootSaga() {
     postWallPanelSaga(),
     postPanelSaga(),
     fetchPanelSaga(),
-    fetchOneWallSaga(),
-    postNewWallSaga(),
-    fetchOneJobSaga(),
-    postNewJobSaga(),
-    fetchAllJobsSaga(),
+    // fetchOneWallSaga(),
+    // postNewWallSaga(),
+    jobsSaga(),
+    wallsSaga(),
+    // fetchOneJobSaga(),
+    // postNewJobSaga(),
+    // fetchAllJobsSaga(),
     loginSaga(), // login saga is now registered
     registrationSaga(),
     userSaga(),
