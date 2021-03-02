@@ -1,6 +1,6 @@
-const setWallPanelsReducer = (state = [], action) => {
+const setWallPanelsPerWallReducer = (state = [], action) => {
   switch (action.type) {
-    case "SET_WALL_PANELS":
+    case "SET_WALL_PANELS_WALL":
       console.log("XXXXXXXXXXXXXXXXXXXXXX", action.payload);
       return action.payload;
     default:
@@ -10,4 +10,4 @@ const setWallPanelsReducer = (state = [], action) => {
 
 // user will be on the redux state at:
 // state.user
-export default setWallPanelsReducer;
+export default setWallPanelsPerWallReducer;

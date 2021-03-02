@@ -4,7 +4,7 @@ import axios from "axios";
 function* fetchWallPanels() {
   try {
     console.log("in fetchWallPanels");
-    const wallPanels = yield axios.get(`/api/wallpanel/${id}`);
+    const wallPanels = yield axios.get(`/api/wallpanel/job/${id}`);
     console.log("GET from fetchWallPanels", wallPanels.data);
     yield put({ type: "SET_WALL_PANELS", payload: wallPanels.data });
   } catch (err) {

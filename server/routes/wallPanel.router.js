@@ -40,14 +40,25 @@ router.post("/", (req, res) => {
       res.sendStatus(500);
     });
 });
-router.get("/:id", (req, res) => {
+router.get("/job/:id", (req, res) => {
   // GET route code here
-  const queryText = `SELECT * FROM "wall_Panel" WHERE "job_id" = $1`;
+  const queryText = `SELECT * FROM "wall_panel" WHERE "job_id" = $1`;
   pool
     .query(queryText, [req.params.id])
     .then((result) => res.send(result.rows))
     .catch((err) => {
-      console.log(`error in get wallPanel with`, err);
+      console.log(`error in get wallPanel/job with`, err);
+      res.sendStatus(500);
+    });
+});
+router.get("/wall/:id", (req, res) => {
+  // GET route code here
+  const queryText = `SELECT * FROM "wall_panel" WHERE "wall_id" = $1`;
+  pool
+    .query(queryText, [req.params.id])
+    .then((result) => res.send(result.rows))
+    .catch((err) => {
+      console.log(`error in get wallPanel/wall with`, err);
       res.sendStatus(500);
     });
 });

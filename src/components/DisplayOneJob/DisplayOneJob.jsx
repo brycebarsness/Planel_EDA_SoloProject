@@ -32,13 +32,19 @@ function DisplayOneJob() {
   // Using hooks we're creating local state for a "heading" variable with
   // a default value of 'Functional Component'
   const store = useSelector((store) => store);
-  const newJob = useSelector((state) => state.setOneJobReducer);
   const dispatch = useDispatch();
   useEffect(() => dispatch({ type: "FETCH_ALL_JOBS" }), []);
   // displayWall;
+  //   dispatch({ type: "FETCH_WALL_PANEL" });
+
+  // these reducers are getting the info to display stored in redux.
+  const newJob = useSelector((state) => state.setOneJobReducer);
   const displayOneWall = useSelector((state) => state.setOneWallReducer);
   const displayWallPanel = useSelector((state) => state.setWallPanelReducer);
   const displayWallPanels = useSelector((state) => state.setWallPanelsReducer);
+  dispatch({ type: "FETCH_WALL_PANELS", payload: newJob.id });
+  dispatch({ type: "FETCH_WALL_PANEL", payload: displayWallPanel.id });
+
   return (
     <div>
       <h2></h2>
