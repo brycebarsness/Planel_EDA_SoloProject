@@ -20,7 +20,21 @@ const {
 // });
 router.get("/", (req, res) => {
   // GET route code here
+  id = req.params.id;
   const queryText = `SELECT * FROM "job"`;
+  pool
+    .query(queryText)
+    .then((result) => res.send(result.rows))
+    .catch((err) => {
+      console.log(`error in get oneJob with`, err);
+      res.sendStatus(500);
+    });
+});
+
+router.get("/details/:id", (req, res) => {
+  // GET route code here
+  id = req.params.id;
+  const queryText = `SELECT * FROM "job" WHERE "id" = ${id}`;
   pool
     .query(queryText)
     .then((result) => res.send(result.rows))

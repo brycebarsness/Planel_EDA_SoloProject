@@ -5,7 +5,7 @@ function* fetchOneJob(action) {
   const id = action.payload;
   console.log(action.payload, "XXXXXXXXXXXXX");
   try {
-    yield axios.get(`/api/job/${id}`);
+    const job = yield axios.get(`/api/job/details/${id}`);
     yield put({ type: "SET_ONE_JOB", payload: job.data[0] });
   } catch (err) {
     console.log("error in fetchOneJob", err);

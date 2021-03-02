@@ -3,10 +3,16 @@ import { forwardRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Moment from "react-moment";
 import axios from "axios";
+import { useHistory, useParams } from "react-router-dom";
 
 function Dashboard(props) {
   const jobs = useSelector((state) => state.setAllJobsReducer);
   const dispatch = useDispatch();
+  useEffect(() => dispatch({ type: "FETCH_ALL_JOBS" }), []);
+  const history = useHistory();
+  const handleDetails = (id) => {
+    history.push(`/details/${id}`); // push to details view
+  };
 
   return (
     <div>
@@ -34,7 +40,7 @@ function Dashboard(props) {
         </thead>
         <tbody>
           {jobs.map((job) => (
-            <tr key={job.id}>
+            <tr key={job.id} onClick={() => handleDetails(job.id)}>
               <td>{job.id}</td>
               <td>{job.user_id}</td>
               <td>{job.contractor}</td>
@@ -53,9 +59,9 @@ function Dashboard(props) {
               <td>
                 <Moment format="YYYY/MM/DD">{job.finish_date}</Moment>
               </td>
-              <td>
-                <button onClick={handleDetails}>Details</button>
-              </td>
+              {/* <td>
+                <button onClick={() => handleDetails(job.id)}>Details</button>
+              </td> */}
             </tr>
           ))}
         </tbody>

@@ -20,6 +20,7 @@ import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
 import InputPage from "../InputPage/InputPage";
+import DetailsPage from "../DetailsPage/DetailsPage";
 import "./App.css";
 
 function App() {
@@ -45,7 +46,9 @@ function App() {
           >
             <AboutPage />
           </Route>
-
+          <Route path="/details/:id">
+            <DetailsPage />
+          </Route>
           <Route
             // shows AboutPage at all times (logged in or not)
             exact
