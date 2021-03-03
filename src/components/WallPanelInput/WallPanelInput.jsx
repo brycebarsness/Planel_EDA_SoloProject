@@ -8,7 +8,7 @@ function WallPanelInput(props) {
   const [panelToAdd, setPanelToAdd] = useState("");
 
   const [wall_PanelToAdd, setWall_PanelToAdd] = useState({
-    wall_id: newWall.id || props.id,
+    wall_id: newWall.id,
     panel_id: panelToAdd,
     quantity: "",
   });

@@ -16,10 +16,9 @@ function PanelDetailsPage() {
   }, []);
 
   return (
-    <p>
+    <div>
       <h2>Wall Length: {wallPanelsPerWall.wall_length}</h2>
       <table>
-        <caption>Panel Size and Quantity</caption>
         <thead>
           <tr>
             <th>Quantity</th>
@@ -43,7 +42,7 @@ function PanelDetailsPage() {
         </tbody>
       </table>
       <WallPanelInput id={id} />
-    </p>
+    </div>
   );
 }
 export default PanelDetailsPage;

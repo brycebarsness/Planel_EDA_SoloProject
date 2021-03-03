@@ -45,20 +45,20 @@ function DetailsPage() {
       <table>
         <tbody>
           <tr>
-            <td>Job Number</td>
-            <td>User Id</td>
-            <td>Contractor</td>
-            <td>Street Address</td>
-            <td>City</td>
-            <td>State</td>
-            <td>Zip Code</td>
-            <td>Start Date </td>
-            <td>Outside Corners</td>
-            <td>Inside Corners</td>
-            <td>Status</td>
-            <td>Complete</td>
-            <td>Comments</td>
-            <td>Finish Date</td>
+            <th>Job Number</th>
+            <th>User Id</th>
+            <th>Contractor</th>
+            <th>Street Address</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Zip Code</th>
+            <th>Start Date </th>
+            <th>Outside Corners</th>
+            <th>Inside Corners</th>
+            <th>Status</th>
+            <th>Complete</th>
+            <th>Comments</th>
+            <th>Finish Date</th>
           </tr>
           <tr>
             <td>{newJob.id}</td>
@@ -85,27 +85,20 @@ function DetailsPage() {
         </tbody>
       </table>
       <table>
-        <caption>Panel Size and Quantity by Wall ID</caption>
         <thead>
           <tr>
             <th>Panel Size (length)</th>
             <th>Quantity</th>
-            <th>UPDATE/DELETE</th>
           </tr>
         </thead>
         {wallPanelsPerJob.map((wallPanel, i) => (
           <tr key={i}>
             <td>{wallPanel.length}</td>
             <td>{wallPanel.sum}</td>
-            <td>
-              <button> UPDATE </button>
-              <button> DELETE </button>
-            </td>
           </tr>
         ))}
       </table>
       <table>
-        <caption>Wall ID, Wall Length Per Job</caption>
         <thead>
           <tr>
             <th>Wall ID</th>
@@ -113,16 +106,18 @@ function DetailsPage() {
             <th>UPDATE/DELETE</th>
           </tr>
         </thead>
-        {wallsPerJob.map((wall, i) => (
-          <tr key={wall.id} onClick={() => handlePanelDetails(wall.id)}>
-            <td>{wall.id}</td>
-            <td>{wall.length}</td>
-            <td>
-              <button> UPDATE </button>
-              <button> DELETE </button>
-            </td>
-          </tr>
-        ))}
+        <tbody>
+          {wallsPerJob.map((wall, i) => (
+            <tr key={wall.id} onClick={() => handlePanelDetails(wall.id)}>
+              <td>{wall.id}</td>
+              <td>{wall.length}</td>
+              <td>
+                <button> UPDATE </button>
+                <button> DELETE </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
       </table>
       <WallInput />
     </div>
