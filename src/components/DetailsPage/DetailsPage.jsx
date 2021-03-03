@@ -3,14 +3,37 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import Moment from "react-moment";
 
+/*
+
+  1. Get redux in shape, so that you confirm all data is good when the this component loads (job, walls, wall panels, panels)
+  2. Show info on this job (like in a little summary table up top)
+  3. Show all walls in a table format
+  4. Show all wall panels in a table format
+  5. When adding a new wall, just POST to the API and refresh the job (which will in turn refresh the wall list)
+  6. When you select a wall, it sets that wall as the 'active' wall (redux or local state, up to you)
+    - conditional rendering: if a wall is selected, show the new panel form
+    - when a new panel is added, it is automatically associated with the selected wall
+    - when adding a new wall panel, do the POST request, refresh the current job (which will in turn refresh the walls list and wall panels list).
+      --> component will update automatically if set up correctly
+  7. Show all calculations as needed, if the above is all working calculations should auto-adjust
+*/
+
 function DetailsPage() {
   const history = useHistory();
-  const store = useSelector((store) => store);
+  // const store = useSelector((store) => store);
+  const newJob = useSelector((state) => state.setOneJobReducer);
+  const wallPanelsPerJob = useSelector(
+    (state) => state.setWallPanelsPerJobReducer
+  );
+  const wallsPerJob = useSelector((state) => state.setWallsPerJobReducer);
 
   const dispatch = useDispatch();
-  useEffect(() => dispatch({ type: "FETCH_ONE_JOB", payload: id }), []);
-  const newJob = useSelector((state) => state.setOneJobReducer);
   let { id } = useParams();
+
+  useEffect(() => {
+    dispatch({ type: "FETCH_ONE_JOB", payload: id });
+  }, []);
+
   // const displayWallPanel = useSelector((state) => state.setWallPanelReducer);
   return (
     <div>
@@ -56,6 +79,49 @@ function DetailsPage() {
             </td>
           </tr>
         </tbody>
+      </table>
+      <table>
+        <caption>Panel Size and Quantity by Wall ID</caption>
+        <thead>
+          <tr>
+            <th>Wall ID</th>
+            <th>Panel Size (length)</th>
+            <th>Quantity</th>
+            <th>UPDATE/DELETE</th>
+          </tr>
+        </thead>
+        {wallPanelsPerJob.map((wallPanel, i) => (
+          <tr key={i}>
+            <td>{wallPanel.wall_id}</td>
+            <td>{wallPanel.length}</td>
+            <td>{wallPanel.quantity}</td>
+            <td>
+              <button> UPDATE </button>
+              <button> DELETE </button>
+            </td>
+          </tr>
+        ))}
+      </table>
+      <table>
+        <caption>Wall ID, Wall Length Per Job</caption>
+        <thead>
+          <tr>
+            <th>Wall ID</th>
+            <th>Wall Length</th>
+            <th>UPDATE/DELETE</th>
+          </tr>
+        </thead>
+        {wallsPerJob.map((wall, i) => (
+          <tr key={i}>
+            <td>{wall.id}</td>
+            <td>{wall.length}</td>
+            <td>
+              <button> UPDATE </button>
+              <button> DELETE </button>
+            </td>
+          </tr>
+        ))}
+        setWallsPerJobReducer;
       </table>
     </div>
   );

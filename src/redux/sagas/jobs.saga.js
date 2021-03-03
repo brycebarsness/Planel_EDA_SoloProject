@@ -30,6 +30,12 @@ function* fetchOneJob(action) {
   try {
     const job = yield axios.get(`/api/job/details/${id}`);
     yield put({ type: "SET_ONE_JOB", payload: job.data[0] });
+    // go ahead and fetch all the walls
+    // should also fetch wall panels??
+    // in other words: what do we need so that your 'details' page
+    // is 100% good to go with all data for the given job
+    yield put({ type: "FETCH_WALLS_FROM_JOB", payload: job.data[0].id });
+    yield put({ type: "FETCH_WALL_PANELS_FROM_JOB", payload: job.data[0].id });
   } catch (err) {
     console.log("error in fetchOneJob", err);
   }

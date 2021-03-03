@@ -4,15 +4,12 @@ import registrationSaga from "./registration.saga";
 import userSaga from "./user.saga";
 import jobsSaga from "./jobs.saga.js";
 import wallsSaga from "./walls.saga.js";
-// import postNewJobSaga from "./postNewJob.saga";
-// import fetchOneJobSaga from "./fetchOneJob.saga";
-// import postNewWallSaga from "./postNewWall.saga";
-// import fetchOneWallSaga from "./fetchOneWall.saga";
-import fetchPanelSaga from "./fetchPanel.saga";
-import postPanelSaga from "./postPanel.saga";
-import fetchWallPanelSaga from "./fetchWallPanel.saga";
-// import fetchAllJobsSaga from "./fetchAllJobs.saga";
-import postWallPanelSaga from "./postWallPanel.saga";
+import panelsSaga from "./panels.saga.js";
+import wallPanelsSaga from "./wallpanels.saga";
+// import fetchPanelSaga from "./fetchPanel.saga";
+// import postPanelSaga from "./postPanel.saga";
+// import fetchWallPanelSaga from "./fetchWallPanel.saga";
+// import postWallPanelSaga from "./postWallPanel.saga";
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
 // This is imported in index.js as rootSaga
@@ -22,17 +19,14 @@ import postWallPanelSaga from "./postWallPanel.saga";
 // and login triggers setting the user
 export default function* rootSaga() {
   yield all([
-    fetchWallPanelSaga(),
-    postWallPanelSaga(),
-    postPanelSaga(),
-    fetchPanelSaga(),
-    // fetchOneWallSaga(),
-    // postNewWallSaga(),
+    // fetchWallPanelSaga(),
+    // postWallPanelSaga(),
+    // postPanelSaga(),
+    // fetchPanelSaga(),
+    panelsSaga(),
     jobsSaga(),
     wallsSaga(),
-    // fetchOneJobSaga(),
-    // postNewJobSaga(),
-    // fetchAllJobsSaga(),
+    wallPanelsSaga(),
     loginSaga(), // login saga is now registered
     registrationSaga(),
     userSaga(),

@@ -1,7 +1,7 @@
 const setWallsPerJobReducer = (state = [], action) => {
   switch (action.type) {
     case "SET_WALLS_JOB":
-      return action.payload.data;
+      return action.payload;
     default:
       return state;
   }
