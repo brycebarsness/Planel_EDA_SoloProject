@@ -64,7 +64,16 @@ INNER JOIN "panel" "l"
 });
 router.get("/wall/:id", (req, res) => {
   // GET route code here
-  const queryText = `SELECT * FROM "wall_panel" WHERE "wall_id" = $1`;
+  const queryText = `SELECT
+"l"."length" AS "panel_length",
+"p"."quantity" AS "wall_panel_quantity",
+"w"."length" AS "wall_length"
+FROM "wall_panel" "p"
+INNER JOIN "wall" "w" 
+	ON "w"."id" = "p"."wall_id"
+INNER JOIN "panel" "l"
+    ON "p"."panel_id" = "l"."id"
+	WHERE "w"."id" = $1;`;
   pool
     .query(queryText, [req.params.id])
     .then((result) => res.send(result.rows))
