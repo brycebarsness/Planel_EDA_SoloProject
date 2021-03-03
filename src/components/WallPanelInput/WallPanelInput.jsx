@@ -22,7 +22,7 @@ function WallPanelInput(props) {
       dispatch({
         type: "POST_WALL_PANEL",
         payload: {
-          wall_id: newWall.id,
+          wall_id: newWall.id || props.id,
           panel_id: panelToAdd,
           quantity: wall_PanelToAdd.quantity,
         },
