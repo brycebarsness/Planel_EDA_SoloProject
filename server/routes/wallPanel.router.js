@@ -43,12 +43,8 @@ router.post("/", (req, res) => {
 router.get("/job/:id", (req, res) => {
   // GET route code here
   const queryText = `SELECT
-	"w"."id",
-	"w"."length",
-	"p"."panel_id",
-	"p"."quantity",
-	"l"."length",
-	"j"."id"
+"l"."length",
+	SUM("p"."quantity")
 FROM "wall" "w"
 INNER JOIN "wall_panel" "p" 
 	ON "w"."id" = "p"."wall_id"
@@ -56,7 +52,8 @@ INNER JOIN "job" "j"
     ON "j"."id" = "w"."job_id"
 INNER JOIN "panel" "l"
     ON "p"."panel_id" = "l"."id"
-	WHERE "j"."id" = $1; `;
+	WHERE "j"."id" = $1
+	GROUP BY "l"."length";  `;
   pool
     .query(queryText, [req.params.id])
     .then((result) => res.send(result.rows))

@@ -84,7 +84,6 @@ function DetailsPage() {
         <caption>Panel Size and Quantity by Wall ID</caption>
         <thead>
           <tr>
-            <th>Wall ID</th>
             <th>Panel Size (length)</th>
             <th>Quantity</th>
             <th>UPDATE/DELETE</th>
@@ -92,9 +91,8 @@ function DetailsPage() {
         </thead>
         {wallPanelsPerJob.map((wallPanel, i) => (
           <tr key={i}>
-            <td>{wallPanel.wall_id}</td>
             <td>{wallPanel.length}</td>
-            <td>{wallPanel.quantity}</td>
+            <td>{wallPanel.sum}</td>
             <td>
               <button> UPDATE </button>
               <button> DELETE </button>
