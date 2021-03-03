@@ -1,32 +1,10 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  TextField,
-  Menu,
-  MenuItem,
-  Button,
-  makeStyles,
-  Checkbox,
-  Grid,
-  FormControl,
-  FormGroup,
-  FormLabel,
-  FormControlLabel,
-  RadioGroup,
-  Radio,
-  ButtonGroup,
-} from "@material-ui/core";
-const useStyles = makeStyles((theme) => ({
-  root: {
-    "& > *": {
-      margin: theme.spacing(2),
-      width: "50vw",
-    },
-  },
-}));
+import { TextField, Button, makeStyles } from "@material-ui/core";
+
 function WallInput(props) {
   const newJob = useSelector((store) => store.setOneJobReducer);
-  const classes = useStyles();
+
   console.log(newJob);
   const [wallToAdd, setWallToAdd] = useState({
     job_id: newJob.id,
@@ -58,11 +36,7 @@ function WallInput(props) {
   return (
     <div>
       <p>Enter Wall Info Below</p>
-      <form
-        className={classes.root}
-        onSubmit={handleWallSubmit}
-        autoComplete="off"
-      >
+      <form onSubmit={handleWallSubmit} autoComplete="off">
         <TextField
           variant="outlined"
           label="length"

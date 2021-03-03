@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import Moment from "react-moment";
+import WallInput from "../WallInput/WallInput";
 
 /*
 
@@ -123,6 +124,7 @@ function DetailsPage() {
           </tr>
         ))}
       </table>
+      <WallInput />
     </div>
   );
 }

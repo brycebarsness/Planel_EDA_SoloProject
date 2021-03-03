@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import Moment from "react-moment";
+import WallPanelInput from "../WallPanelInput/WallPanelInput";
 
 function PanelDetailsPage() {
   const history = useHistory();
@@ -41,6 +42,7 @@ function PanelDetailsPage() {
           ))}
         </tbody>
       </table>
+      <WallPanelInput id={id} />
     </p>
   );
 }

@@ -1,36 +1,14 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  TextField,
-  Menu,
-  MenuItem,
-  Button,
-  makeStyles,
-  Checkbox,
-  Grid,
-  FormControl,
-  FormGroup,
-  FormLabel,
-  FormControlLabel,
-  RadioGroup,
-  Radio,
-  ButtonGroup,
-} from "@material-ui/core";
-const useStyles = makeStyles((theme) => ({
-  root: {
-    "& > *": {
-      margin: theme.spacing(2),
-      width: "50vw",
-    },
-  },
-}));
+import { TextField, Button, makeStyles, ButtonGroup } from "@material-ui/core";
+
 function WallPanelInput(props) {
   const newWall = useSelector((state) => state.setOneWallReducer);
-  const classes = useStyles();
+
   const [panelToAdd, setPanelToAdd] = useState("");
 
   const [wall_PanelToAdd, setWall_PanelToAdd] = useState({
-    wall_id: newWall.id,
+    wall_id: newWall.id || props.id,
     panel_id: panelToAdd,
     quantity: "",
   });
@@ -58,11 +36,7 @@ function WallPanelInput(props) {
   }
   return (
     <div>
-      <form
-        className={classes.root}
-        onSubmit={handleWallPanelSubmit}
-        autoComplete="off"
-      >
+      <form onSubmit={handleWallPanelSubmit} autoComplete="off">
         <p>Enter Panel Info Below</p>
 
         <ButtonGroup>
