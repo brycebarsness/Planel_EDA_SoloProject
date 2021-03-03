@@ -92,54 +92,16 @@ function DisplayOneJob() {
         </tbody>
       </table>
       <p>Current Wall Length: {displayOneWall.length}</p>
-      <p>
-        <table>
-          <caption>Wall Length by Wall ID</caption>
-          <thead>
-            <tr>
-              <th>Wall ID</th>
-              <th>Length</th>
-              <th>UPDATE/DELETE</th>
-            </tr>
-          </thead>
-          {/* {displayOneWall.map((wall) => (
-            <tr key={wall.id}>
-              <td>{wall.id}</td>
-              <td>{wall.length}</td>
-            <td>
-                <button> UPDATE </button>
-                <button> DELETE </button>
-              </td>
-            </tr>
-          ))} */}
-        </table>
-      </p>
-      <p>
-        Current Panel Length: {displayWallPanel.panel_id}
-        Current Panel Quantity: {displayWallPanel.quantity}
-      </p>
 
       <table>
-        <caption>Panel ID and Quantity by Wall ID</caption>
+        <caption>Wall Length by Wall ID</caption>
         <thead>
           <tr>
             <th>Wall ID</th>
-            <th>Panel ID</th>
-            <th>Quantity</th>
+            <th>Length</th>
             <th>UPDATE/DELETE</th>
           </tr>
         </thead>
-        {displayWallPanels.map((wallPanel) => (
-          <tr key={wallPanel.id}>
-            <td>{wallPanel.wall_id}</td>
-            <td>{wallPanel.panel_id}</td>
-            <td>{wallPanel.quantity}</td>
-            <td>
-              <button> UPDATE </button>
-              <button> DELETE </button>
-            </td>
-          </tr>
-        ))}
       </table>
     </div>
   );

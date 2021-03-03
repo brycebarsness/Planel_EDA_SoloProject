@@ -1,13 +1,14 @@
 import { put, takeLatest } from "redux-saga/effects";
 import axios from "axios";
 
-function* fetchWallPanelWall() {
+function* fetchWallPanelWall(action) {
+  const wallId = action.payload;
   try {
-    const wallPanel = yield axios.get("/api/wallPanel/wall/:id");
+    const wallPanel = yield axios.get(`/api/wallPanel/wall/${wallId}`);
     console.log("GET from fetchWallPanel:", wallPanel.data);
     yield put({ type: "SET_WALL_PANELS_WALL", payload: wallPanel.data });
   } catch (err) {
-    console.log("error in fetchWallPanel:", err);
+    console.log("error in fetch Wall Panel Wall:", err);
   }
 }
 

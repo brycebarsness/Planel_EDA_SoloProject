@@ -34,6 +34,9 @@ function DetailsPage() {
     dispatch({ type: "FETCH_ONE_JOB", payload: id });
   }, []);
 
+  const handlePanelDetails = (id) => {
+    history.push(`/paneldetails/${id}`); // push to details view
+  };
   // const displayWallPanel = useSelector((state) => state.setWallPanelReducer);
   return (
     <div>
@@ -110,7 +113,7 @@ function DetailsPage() {
           </tr>
         </thead>
         {wallsPerJob.map((wall, i) => (
-          <tr key={i}>
+          <tr key={wall.id} onClick={() => handlePanelDetails(wall.id)}>
             <td>{wall.id}</td>
             <td>{wall.length}</td>
             <td>
@@ -119,7 +122,6 @@ function DetailsPage() {
             </td>
           </tr>
         ))}
-        setWallsPerJobReducer;
       </table>
     </div>
   );
