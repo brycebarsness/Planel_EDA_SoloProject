@@ -1,4 +1,4 @@
-import { put, takeLatest } from "redux-saga/effects";
+import { put, takeEvery, takeLatest } from "redux-saga/effects";
 import axios from "axios";
 
 function* fetchWallPanelWall(action) {
@@ -35,8 +35,19 @@ function* fetchWallPanels(action) {
     console.log("error in fetchWallPanels:", err);
   }
 }
+function* deleteWallPanels(action) {
+  const id = action.payload;
+  try {
+    console.log(id);
+    const response = yield axios.delete(`/api/wallPanel/delete/${id}`);
+    console.log("in delete WallPanels", id);
+  } catch (err) {
+    console.log("error in fetchWallPanels:", err);
+  }
+}
 
 function* wallPanelsSaga() {
+  yield takeEvery("DELETE_WALL_PANEL", deleteWallPanels);
   yield takeLatest("FETCH_WALL_PANELS_FROM_JOB", fetchWallPanels);
   yield takeLatest("POST_WALL_PANEL", postWallPanel);
   yield takeLatest("FETCH_WALL_PANEL_WALL", fetchWallPanelWall);
