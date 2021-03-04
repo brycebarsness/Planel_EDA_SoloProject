@@ -34,40 +34,98 @@ function WallPanelInput(props) {
       alert("Please select panel quantity");
     }
   }
+
+  function handleWallPanelUpdate(event) {
+    console.log("in handleWallPanelUpdate", props.updateWallPanel);
+    if (props.updateWallPanel) {
+      event.preventDefault();
+      dispatch({
+        type: "UPDATE_WALL_PANEL",
+        payload: {
+          id: props.updateWallPanel.id,
+          wall_id: newWall.id || props.id,
+          panel_id: panelToAdd,
+          quantity: wall_PanelToAdd.quantity,
+        },
+      });
+    } else {
+      handleWallPanelSubmit(event);
+    }
+  }
   return (
     <div>
-      <form onSubmit={handleWallPanelSubmit} autoComplete="off">
+      <form onSubmit={handleWallPanelUpdate} autoComplete="off">
         <p>Enter Panel Info Below</p>
 
         <ButtonGroup>
-          <Button className="inputButton" onClick={() => setPanelToAdd(1)}>
+          <Button
+            color="secondary"
+            className="inputButton"
+            onClick={() => setPanelToAdd(1)}
+          >
             36
           </Button>
-          <Button className="inputButton" onClick={() => setPanelToAdd(2)}>
+          <Button
+            color="secondary"
+            className="inputButton"
+            onClick={() => setPanelToAdd(2)}
+          >
             30
           </Button>
-          <Button className="inputButton" onClick={() => setPanelToAdd(3)}>
+          <Button
+            color="secondary"
+            className="inputButton"
+            onClick={() => setPanelToAdd(3)}
+          >
             24
           </Button>
-          <Button className="inputButton" onClick={() => setPanelToAdd(4)}>
+          <Button
+            color="secondary"
+            className="inputButton"
+            onClick={() => setPanelToAdd(4)}
+          >
             18
           </Button>
-          <Button className="inputButton" onClick={() => setPanelToAdd(5)}>
+          <Button
+            color="secondary"
+            className="inputButton"
+            onClick={() => setPanelToAdd(5)}
+          >
             12
           </Button>
-          <Button className="inputButton" onClick={() => setPanelToAdd(6)}>
+          <Button
+            color="secondary"
+            className="inputButton"
+            onClick={() => setPanelToAdd(6)}
+          >
             8
           </Button>
-          <Button className="inputButton" onClick={() => setPanelToAdd(7)}>
+          <Button
+            color="secondary"
+            className="inputButton"
+            onClick={() => setPanelToAdd(7)}
+          >
             6
           </Button>
-          <Button className="inputButton" onClick={() => setPanelToAdd(8)}>
+          <Button
+            color="secondary"
+            className="inputButton"
+            onClick={() => setPanelToAdd(8)}
+          >
             4
           </Button>
-          <Button className="inputButton" onClick={() => setPanelToAdd(9)}>
+          <Button
+            color="secondary"
+            className="inputButton"
+            onClick={() => setPanelToAdd(9)}
+          >
             2
           </Button>
-          <Button className="inputButton" onClick={() => setPanelToAdd(9)}>
+          <Button
+            color="secondary"
+            className="inputButton"
+            onClick={() => setPanelToAdd(9)}
+          >
             1
           </Button>
         </ButtonGroup>
@@ -79,7 +137,7 @@ function WallPanelInput(props) {
           onChange={handleWall_PanelChange("quantity")}
           value={wall_PanelToAdd.length}
         />
-        <Button variant="outlined" type="submit" color="error">
+        <Button variant="outlined" type="submit" color="secondary">
           Submit
         </Button>
       </form>

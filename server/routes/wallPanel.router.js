@@ -110,7 +110,7 @@ router.put("/:id", (req, res) => {
        "quantity" = $2
  WHERE "wall_panel"."id" = $3;`;
   pool
-    .query(queryText, [req.body.panel_id, req.body.quantity, id])
+    .query(queryText, [req.body.panel_id, Number(req.body.quantity), id])
     .then(() => {
       console.log(`Update at id: ${id} successfully`);
       res.sendStatus(204);

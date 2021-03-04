@@ -45,8 +45,21 @@ function* deleteWallPanels(action) {
     console.log("error in deleteWallPanels:", err);
   }
 }
+function* updateWallPanel(action) {
+  const updates = action.payload;
+  const id = action.payload.id;
+  console.log(action.payload);
+  try {
+    console.log("in updateWallPanel", id, updates);
+    yield axios.put(`/api/wallPanel/${id}`, updates);
+    console.log("in update WallPanels", id);
+  } catch (err) {
+    console.log("error in update WallPanels:", err);
+  }
+}
 
 function* wallPanelsSaga() {
+  yield takeEvery("UPDATE_WALL_PANEL", updateWallPanel);
   yield takeEvery("DELETE_WALL_PANEL", deleteWallPanels);
   yield takeLatest("FETCH_WALL_PANELS_FROM_JOB", fetchWallPanels);
   yield takeLatest("POST_WALL_PANEL", postWallPanel);

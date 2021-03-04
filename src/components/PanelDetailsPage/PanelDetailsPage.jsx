@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import Moment from "react-moment";
@@ -9,6 +9,7 @@ function PanelDetailsPage() {
   const wallPanelsPerWall = useSelector(
     (state) => state.setWallPanelsPerWallReducer
   );
+  const [updateWallPanel, setUpdateWallPanel] = useState(null);
   const dispatch = useDispatch();
   let { id } = useParams();
   useEffect(() => {
@@ -19,7 +20,15 @@ function PanelDetailsPage() {
     // dispatch type delete payload wall_panel_id
     dispatch({ type: "DELETE_WALL_PANEL", payload: wall_panel_id });
   };
-
+  const handlePanelUpdate = (id) => {
+    setUpdateWallPanel({
+      id,
+      wall_id: "",
+      panel_id: "",
+      quantity: "",
+    });
+    console.log(updateWallPanel);
+  };
   return (
     <div>
       {/* <h2>Wall Length: {wallPanelsPerWall.wall_length}</h2> */}
@@ -39,7 +48,11 @@ function PanelDetailsPage() {
               <td>{wallPanel.panel_length}</td>
               <td>{wallPanel.wall_length}</td>
               <td>
-                <button> UPDATE </button>
+                <button
+                  onClick={() => handlePanelUpdate(wallPanel.wall_panel_id)}
+                >
+                  UPDATE
+                </button>
                 <button
                   onClick={() => handlePanelDelete(wallPanel.wall_panel_id)}
                 >
@@ -50,7 +63,7 @@ function PanelDetailsPage() {
           ))}
         </tbody>
       </table>
-      <WallPanelInput id={id} />
+      <WallPanelInput id={id} updateWallPanel={updateWallPanel} />
     </div>
   );
 }
