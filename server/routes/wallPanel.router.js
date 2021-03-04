@@ -68,7 +68,8 @@ router.get("/wall/:id", (req, res) => {
   "p"."id" AS "wall_panel_id",
 "l"."length" AS "panel_length",
 "p"."quantity" AS "wall_panel_quantity",
-"w"."length" AS "wall_length"
+"w"."length" AS "wall_length",
+"p"."wall_id" AS "wall_id"
 FROM "wall_panel" "p"
 INNER JOIN "wall" "w" 
 	ON "w"."id" = "p"."wall_id"

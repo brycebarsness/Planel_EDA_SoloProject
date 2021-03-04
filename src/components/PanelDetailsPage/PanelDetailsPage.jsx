@@ -17,9 +17,9 @@ function PanelDetailsPage() {
     dispatch({ type: "FETCH_WALL_PANEL_WALL", payload: id });
   }, [dispatch]);
 
-  const handlePanelDelete = (wall_panel_id) => {
+  const handlePanelDelete = (objectOfIds) => {
     // dispatch type delete payload wall_panel_id
-    dispatch({ type: "DELETE_WALL_PANEL", payload: wall_panel_id });
+    dispatch({ type: "DELETE_WALL_PANEL", payload: objectOfIds });
   };
   const handlePanelUpdate = (id) => {
     setUpdateWallPanel({
@@ -59,7 +59,12 @@ function PanelDetailsPage() {
                 <Button
                   variant="outlined"
                   color="secondary"
-                  onClick={() => handlePanelDelete(wallPanel.wall_panel_id)}
+                  onClick={() =>
+                    handlePanelDelete({
+                      wall_panel_id: wallPanel.wall_panel_id,
+                      wall_id: wallPanel.wall_id,
+                    })
+                  }
                 >
                   Delete
                 </Button>

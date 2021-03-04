@@ -47,6 +47,10 @@ function* deleteWall(action) {
       type: "FETCH_WALLS_FROM_JOB",
       payload: jobId,
     });
+    yield put({
+      type: "FETCH_WALL_PANELS_FROM_JOB",
+      payload: jobId,
+    });
   } catch (err) {
     console.log("error in Delete Wall:", err);
   }
