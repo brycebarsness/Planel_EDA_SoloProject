@@ -142,9 +142,8 @@ function WallPanelInput(props) {
             Submit
           </Button>
           <Button
-            onClick={() => props.setToggleWallForm(false)}
+            onClick={() => props.setTogglePanelForm(false)}
             variant="outlined"
-            type="submit"
             color="secondary"
           >
             Close

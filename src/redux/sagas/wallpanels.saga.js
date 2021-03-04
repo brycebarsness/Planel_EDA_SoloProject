@@ -62,8 +62,8 @@ function* updateWallPanel(action) {
   try {
     console.log("in updateWallPanel", id, updates);
     yield axios.put(`/api/wallPanel/${id}`, updates);
-    console.log("in update WallPanels", id);
-    yield put({ type: "FETCH_WALL_PANEL_WALL", payload: id });
+    console.log("in update WallPanels", updates.wall_id);
+    yield put({ type: "FETCH_WALL_PANEL_WALL", payload: updates.wall_id });
   } catch (err) {
     console.log("error in update WallPanels:", err);
   }
