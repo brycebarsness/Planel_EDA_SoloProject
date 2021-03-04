@@ -196,6 +196,14 @@ function jobInput(props) {
           <Button variant="outlined" type="submit" color="error">
             Submit
           </Button>
+
+          <Button
+            variant="outlined"
+            color="secondary"
+            onClick={() => props.setToggleForm(false)}
+          >
+            Close
+          </Button>
         </form>
       </>
     </div>

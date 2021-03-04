@@ -46,6 +46,14 @@ function WallInput(props) {
         <Button variant="outlined" type="submit" color="error">
           Submit
         </Button>
+        <Button
+          onClick={() => props.setToggleWallForm(false)}
+          variant="outlined"
+          type="submit"
+          color="secondary"
+        >
+          Close
+        </Button>
       </form>
     </div>
   );

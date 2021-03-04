@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import Moment from "react-moment";
 import WallPanelInput from "../WallPanelInput/WallPanelInput";
+import { TextField, Button, makeStyles } from "@material-ui/core";
 
 function PanelDetailsPage() {
   const history = useHistory();
@@ -14,7 +15,7 @@ function PanelDetailsPage() {
   let { id } = useParams();
   useEffect(() => {
     dispatch({ type: "FETCH_WALL_PANEL_WALL", payload: id });
-  }, []);
+  }, [dispatch]);
 
   const handlePanelDelete = (wall_panel_id) => {
     // dispatch type delete payload wall_panel_id
@@ -29,6 +30,7 @@ function PanelDetailsPage() {
     });
     console.log(updateWallPanel);
   };
+  const [togglePanelForm, setTogglePanelForm] = useState(false);
   return (
     <div>
       {/* <h2>Wall Length: {wallPanelsPerWall.wall_length}</h2> */}
@@ -48,22 +50,36 @@ function PanelDetailsPage() {
               <td>{wallPanel.panel_length}</td>
               <td>{wallPanel.wall_length}</td>
               <td>
-                <button
+                <Button
+                  variant="outlined"
                   onClick={() => handlePanelUpdate(wallPanel.wall_panel_id)}
                 >
-                  UPDATE
-                </button>
-                <button
+                  Update
+                </Button>
+                <Button
+                  variant="outlined"
+                  color="secondary"
                   onClick={() => handlePanelDelete(wallPanel.wall_panel_id)}
                 >
-                  DELETE
-                </button>
+                  Delete
+                </Button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      <WallPanelInput id={id} updateWallPanel={updateWallPanel} />
+      <Button variant="outlined" onClick={() => setTogglePanelForm(true)}>
+        Add Panels
+      </Button>
+      {togglePanelForm && (
+        <>
+          <WallPanelInput
+            setTogglePanelForm={setTogglePanelForm}
+            id={id}
+            updateWallPanel={updateWallPanel}
+          />
+        </>
+      )}
     </div>
   );
 }

@@ -15,8 +15,11 @@ function* fetchWallPanelWall(action) {
 function* postWallPanel(action) {
   const wallPanel = action.payload;
   try {
-    const createdWall_Panel = yield axios.post("/api/wallPanel", wallPanel);
-    yield put({ type: "SET_WALL_PANEL", payload: createdWall_Panel });
+    const response = yield axios.post("/api/wallPanel", wallPanel);
+    yield put({
+      type: "FETCH_WALL_PANEL_WALL",
+      payload: wallPanel.wall_id,
+    });
     // yield put({ type: "SET_WALL_PANEL", payload: createdWall_Panel });
     // "SET_WALL_PANELS";
   } catch (err) {
@@ -41,6 +44,7 @@ function* deleteWallPanels(action) {
     console.log(id);
     const response = yield axios.delete(`/api/wallPanel/delete/${id}`);
     console.log("in delete WallPanels", id);
+    yield put({ type: "FETCH_WALL_PANEL_WALL", payload: id });
   } catch (err) {
     console.log("error in deleteWallPanels:", err);
   }
@@ -53,6 +57,7 @@ function* updateWallPanel(action) {
     console.log("in updateWallPanel", id, updates);
     yield axios.put(`/api/wallPanel/${id}`, updates);
     console.log("in update WallPanels", id);
+    yield put({ type: "FETCH_WALL_PANEL_WALL", payload: id });
   } catch (err) {
     console.log("error in update WallPanels:", err);
   }

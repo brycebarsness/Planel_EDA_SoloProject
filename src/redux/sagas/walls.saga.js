@@ -1,4 +1,4 @@
-import { put, takeEvery, takeLatest } from "redux-saga/effects";
+import { put, takeEvery, takeLatest, select } from "redux-saga/effects";
 import axios from "axios";
 // import { response } from "express";
 
@@ -27,6 +27,10 @@ function* postNewWall(action) {
   try {
     const createdWall = yield axios.post("/api/wall/addWall", newWall);
     yield put({ type: "SET_ONE_WALL", payload: createdWall });
+    yield put({
+      type: "FETCH_WALLS_FROM_JOB",
+      payload: newWall.job_id,
+    });
   } catch (err) {
     console.log("error in postNewWall", err);
   }
@@ -37,7 +41,12 @@ function* deleteWall(action) {
   try {
     console.log(id);
     const response = yield axios.delete(`/api/wall/delete/${id}`);
+    const jobId = yield select((store) => store.setOneJobReducer.id);
     console.log("in delete Wall", id);
+    yield put({
+      type: "FETCH_WALLS_FROM_JOB",
+      payload: jobId,
+    });
   } catch (err) {
     console.log("error in Delete Wall:", err);
   }

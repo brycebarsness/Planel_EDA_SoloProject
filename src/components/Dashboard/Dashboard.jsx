@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import Moment from "react-moment";
 import axios from "axios";
 import { useHistory, useParams } from "react-router-dom";
+import { Button, ButtonGroup } from "@material-ui/core";
+import JobInput from "../JobInput/JobInput";
 
 function Dashboard(props) {
   const jobs = useSelector((state) => state.setAllJobsReducer);
@@ -18,10 +20,14 @@ function Dashboard(props) {
     dispatch({ type: "DELETE_JOB", payload: id });
   };
 
+  const [toggleForm, setToggleForm] = useState(false);
+
   return (
     <div>
       <h2>Total Jobs: {jobs.length} </h2>
-
+      <Button variant="outlined" onClick={() => setToggleForm(true)}>
+        Add Job
+      </Button>
       <table>
         <thead>
           <tr>
@@ -39,7 +45,7 @@ function Dashboard(props) {
             <th>Complete</th>
             <th>Comments</th>
             <th>Finish Date</th>
-            <th> Details/Delete</th>
+            <th> Details/Edit/Delete</th>
           </tr>
         </thead>
         <tbody>
@@ -63,14 +69,29 @@ function Dashboard(props) {
               <td>
                 <Moment format="YYYY/MM/DD">{job.finish_date}</Moment>
               </td>
-              <button onClick={() => handleDetails(job.id)}>Details</button>
               <td>
-                <button onClick={() => handleJobDelete(job.id)}>Delete</button>
+                <ButtonGroup>
+                  <Button onClick={() => handleDetails(job.id)}>Details</Button>
+
+                  <Button onClick={() => setToggleForm(true)}>Edit</Button>
+
+                  <Button
+                    color="secondary"
+                    onClick={() => handleJobDelete(job.id)}
+                  >
+                    Delete
+                  </Button>
+                </ButtonGroup>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      {toggleForm && (
+        <>
+          <JobInput setToggleForm={setToggleForm} />
+        </>
+      )}
     </div>
   );
 }

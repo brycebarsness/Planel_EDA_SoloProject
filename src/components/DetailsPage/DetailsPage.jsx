@@ -1,8 +1,9 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import Moment from "react-moment";
 import WallInput from "../WallInput/WallInput";
+import { Button, ButtonGroup } from "@material-ui/core";
 
 /*
 
@@ -42,6 +43,7 @@ function DetailsPage() {
     // dispatch type delete payload wall_panel_id
     dispatch({ type: "DELETE_WALL", payload: id });
   };
+  const [toggleWallForm, setToggleWallForm] = useState(false);
   // const displayWallPanel = useSelector((state) => state.setWallPanelReducer);
   return (
     <div>
@@ -116,18 +118,33 @@ function DetailsPage() {
               <td>{wall.id}</td>
               <td>{wall.length}</td>
               <td>
-                <button onClick={() => handlePanelDetails(wall.id)}>
-                  Edit
-                </button>
-                <button onClick={() => handleWallDelete(wall.id)}>
-                  Delete
-                </button>
+                <ButtonGroup>
+                  <Button
+                    variant="outlined"
+                    onClick={() => handlePanelDetails(wall.id)}
+                  >
+                    Edit
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    onClick={() => handleWallDelete(wall.id)}
+                  >
+                    Delete
+                  </Button>
+                </ButtonGroup>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      <WallInput />
+      <Button variant="outlined" onClick={() => setToggleWallForm(true)}>
+        Add A Wall
+      </Button>
+      {toggleWallForm && (
+        <>
+          <WallInput setToggleWallForm={setToggleWallForm} />
+        </>
+      )}
     </div>
   );
 }

@@ -137,9 +137,19 @@ function WallPanelInput(props) {
           onChange={handleWall_PanelChange("quantity")}
           value={wall_PanelToAdd.length}
         />
-        <Button variant="outlined" type="submit" color="secondary">
-          Submit
-        </Button>
+        <ButtonGroup>
+          <Button variant="outlined" type="submit" color="secondary">
+            Submit
+          </Button>
+          <Button
+            onClick={() => props.setToggleWallForm(false)}
+            variant="outlined"
+            type="submit"
+            color="secondary"
+          >
+            Close
+          </Button>
+        </ButtonGroup>
       </form>
     </div>
   );
