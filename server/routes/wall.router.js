@@ -53,4 +53,20 @@ router.get("/job/:id", (req, res) => {
     });
 });
 
+router.delete("/delete/:id", (req, res) => {
+  // GET route code here
+  const id = Number(req.params.id);
+  const queryText = `DELETE FROM "wall" WHERE "id" = $1;`;
+  pool
+    .query(queryText, [id])
+    .then(() => {
+      console.log(`Deleted at id: ${id} successfully`);
+      res.sendStatus(204);
+    })
+    .catch((err) => {
+      console.log("Error in delete", err);
+      res.sendStatus(500);
+    });
+});
+
 module.exports = router;

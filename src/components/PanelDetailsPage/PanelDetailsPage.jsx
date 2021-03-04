@@ -22,7 +22,7 @@ function PanelDetailsPage() {
 
   return (
     <div>
-      <h2>Wall Length: {wallPanelsPerWall.wall_length}</h2>
+      {/* <h2>Wall Length: {wallPanelsPerWall.wall_length}</h2> */}
       <table>
         <thead>
           <tr>

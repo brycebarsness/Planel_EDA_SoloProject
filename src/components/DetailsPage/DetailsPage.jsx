@@ -38,6 +38,10 @@ function DetailsPage() {
   const handlePanelDetails = (id) => {
     history.push(`/paneldetails/${id}`); // push to details view
   };
+  const handleWallDelete = (id) => {
+    // dispatch type delete payload wall_panel_id
+    dispatch({ type: "DELETE_WALL", payload: id });
+  };
   // const displayWallPanel = useSelector((state) => state.setWallPanelReducer);
   return (
     <div>
@@ -108,12 +112,16 @@ function DetailsPage() {
         </thead>
         <tbody>
           {wallsPerJob.map((wall, i) => (
-            <tr key={wall.id} onClick={() => handlePanelDetails(wall.id)}>
+            <tr key={wall.id}>
               <td>{wall.id}</td>
               <td>{wall.length}</td>
               <td>
-                <button> UPDATE </button>
-                <button> DELETE </button>
+                <button onClick={() => handlePanelDetails(wall.id)}>
+                  Edit
+                </button>
+                <button onClick={() => handleWallDelete(wall.id)}>
+                  Delete
+                </button>
               </td>
             </tr>
           ))}

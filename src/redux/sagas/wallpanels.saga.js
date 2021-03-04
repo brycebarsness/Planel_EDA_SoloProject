@@ -42,7 +42,7 @@ function* deleteWallPanels(action) {
     const response = yield axios.delete(`/api/wallPanel/delete/${id}`);
     console.log("in delete WallPanels", id);
   } catch (err) {
-    console.log("error in fetchWallPanels:", err);
+    console.log("error in deleteWallPanels:", err);
   }
 }
 
