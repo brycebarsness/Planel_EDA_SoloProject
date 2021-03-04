@@ -13,6 +13,10 @@ function Dashboard(props) {
   const handleDetails = (id) => {
     history.push(`/details/${id}`); // push to details view
   };
+  const handleJobDelete = (id) => {
+    // dispatch type delete payload wall_panel_id
+    dispatch({ type: "DELETE_JOB", payload: id });
+  };
 
   return (
     <div>
@@ -35,12 +39,12 @@ function Dashboard(props) {
             <th>Complete</th>
             <th>Comments</th>
             <th>Finish Date</th>
-            <th> Details/Edit</th>
+            <th> Details/Delete</th>
           </tr>
         </thead>
         <tbody>
           {jobs.map((job) => (
-            <tr key={job.id} onClick={() => handleDetails(job.id)}>
+            <tr key={job.id}>
               <td>{job.id}</td>
               <td>{job.user_id}</td>
               <td>{job.contractor}</td>
@@ -59,9 +63,10 @@ function Dashboard(props) {
               <td>
                 <Moment format="YYYY/MM/DD">{job.finish_date}</Moment>
               </td>
-              {/* <td>
-                <button onClick={() => handleDetails(job.id)}>Details</button>
-              </td> */}
+              <button onClick={() => handleDetails(job.id)}>Details</button>
+              <td>
+                <button onClick={() => handleJobDelete(job.id)}>Delete</button>
+              </td>
             </tr>
           ))}
         </tbody>

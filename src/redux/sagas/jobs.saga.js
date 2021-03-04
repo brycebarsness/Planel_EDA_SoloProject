@@ -1,4 +1,4 @@
-import { put, takeLatest } from "redux-saga/effects";
+import { put, takeEvery, takeLatest } from "redux-saga/effects";
 import axios from "axios";
 
 function* fetchAllJobs() {
@@ -41,7 +41,18 @@ function* fetchOneJob(action) {
   }
 }
 
+function* deleteJob(action) {
+  const id = action.payload;
+  try {
+    console.log("in delete job", id);
+    const response = yield axios.delete(`/api/job/delete/${id}`);
+  } catch (err) {
+    console.log("error in Delete Job:", err);
+  }
+}
+
 function* jobsSaga() {
+  yield takeEvery("DELETE_JOB", deleteJob);
   yield takeLatest("FETCH_ONE_JOB", fetchOneJob);
   yield takeLatest("POST_NEW_JOB", postNewJob);
   yield takeLatest("FETCH_ALL_JOBS", fetchAllJobs);

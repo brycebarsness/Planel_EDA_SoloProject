@@ -100,4 +100,25 @@ router.delete("/delete/:id", (req, res) => {
     });
 });
 
+router.put("/:id", (req, res) => {
+  // GET route code here
+  const newValues = req.body;
+  console.log(newValues);
+  const id = Number(req.params.id);
+  const queryText = `UPDATE "wall_panel" 
+   SET "panel_id" = $1,
+       "quantity" = $2
+ WHERE "wall_panel"."id" = $3;`;
+  pool
+    .query(queryText, [req.body.panel_id, req.body.quantity, id])
+    .then(() => {
+      console.log(`Update at id: ${id} successfully`);
+      res.sendStatus(204);
+    })
+    .catch((err) => {
+      console.log("Error in Update", err);
+      res.sendStatus(500);
+    });
+});
+
 module.exports = router;
