@@ -48,9 +48,11 @@ function WallPanelInput(props) {
           quantity: wall_PanelToAdd.quantity,
         },
       });
+      props.setTogglePanelForm(false);
       props.setUpdateWallPanel(null);
     } else {
       handleWallPanelSubmit(event);
+      props.setTogglePanelForm(false);
     }
   }
   return (
