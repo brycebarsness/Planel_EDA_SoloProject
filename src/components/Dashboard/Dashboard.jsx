@@ -111,7 +111,11 @@ function Dashboard(props) {
       </table>
       {toggleForm && (
         <>
-          <JobInput setToggleForm={setToggleForm} updateJob={updateJob} />
+          <JobInput
+            setToggleForm={setToggleForm}
+            updateJob={updateJob}
+            setUpdateJob={setUpdateJob}
+          />
         </>
       )}
     </div>

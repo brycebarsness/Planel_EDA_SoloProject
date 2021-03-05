@@ -125,7 +125,7 @@ router.put("/:id", (req, res) => {
  WHERE "id" = $13;`;
   pool
     .query(queryText, [
-      newJob.length,
+      newJob.contractor,
       newJob.street_address,
       newJob.city,
       newJob.state,

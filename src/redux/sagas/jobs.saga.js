@@ -46,6 +46,9 @@ function* deleteJob(action) {
   try {
     console.log("in delete job", id);
     const response = yield axios.delete(`/api/job/delete/${id}`);
+    yield put({
+      type: "FETCH_ALL_JOBS",
+    });
   } catch (err) {
     console.log("error in Delete Job:", err);
   }

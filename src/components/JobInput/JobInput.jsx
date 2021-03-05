@@ -124,6 +124,7 @@ function jobInput(props) {
           finish_date: jobToAdd.finish_date,
         },
       });
+      props.setUpdateJob(null);
     } else {
       handleJobSubmit(event);
     }
