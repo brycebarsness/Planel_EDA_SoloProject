@@ -21,7 +21,12 @@ function Dashboard(props) {
   };
 
   const [toggleForm, setToggleForm] = useState(false);
-
+  const [updateJob, setUpdateJob] = useState(null);
+  function handleJobUpdate(id) {
+    setUpdateJob({
+      id,
+    });
+  }
   return (
     <div>
       <h2>Total Jobs: {jobs.length} </h2>
@@ -86,7 +91,7 @@ function Dashboard(props) {
                   <Button
                     color="default"
                     variant="outlined"
-                    onClick={() => setToggleForm(true)}
+                    onClick={() => handleJobUpdate(job.id)}
                   >
                     Edit
                   </Button>
@@ -106,7 +111,7 @@ function Dashboard(props) {
       </table>
       {toggleForm && (
         <>
-          <JobInput setToggleForm={setToggleForm} />
+          <JobInput setToggleForm={setToggleForm} updateJob={updateJob} />
         </>
       )}
     </div>

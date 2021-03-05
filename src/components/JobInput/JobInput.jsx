@@ -102,7 +102,32 @@ function jobInput(props) {
   const handleJobTextChange = (key) => (event) => {
     setJobToAdd({ ...jobToAdd, [key]: event.target.value });
   };
-
+  function handleJobUpdate(event) {
+    console.log("in handleJobUpdate", props.updateJob);
+    if (props.updateJob) {
+      event.preventDefault();
+      dispatch({
+        type: "UPDATE_JOB",
+        payload: {
+          id: props.updateJob.id,
+          contractor: jobToAdd.contractor,
+          street_address: jobToAdd.street_address,
+          city: jobToAdd.city,
+          state: jobToAdd.state,
+          zip: jobToAdd.zip,
+          start_date: jobToAdd.start_date,
+          outside_corners: jobToAdd.outside_corners,
+          inside_corners: jobToAdd.inside_corners,
+          status: jobToAdd.status,
+          complete: jobToAdd.complete,
+          comments: jobToAdd.comments,
+          finish_date: jobToAdd.finish_date,
+        },
+      });
+    } else {
+      handleJobSubmit(event);
+    }
+  }
   return (
     <div>
       <h2></h2>
@@ -110,15 +135,9 @@ function jobInput(props) {
         <p>Enter Job Info Below</p>
         <form
           className={classes.root}
-          onSubmit={handleJobSubmit}
+          onSubmit={handleJobUpdate}
           autoComplete="off"
         >
-          {/* <TextField
-            variant="outlined"
-            label="user_id"
-            onChange={handleJobTextChange("user_id")}
-            value={jobToAdd.user_id}
-          /> */}
           <TextField
             variant="outlined"
             label="contractor"

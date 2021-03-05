@@ -104,5 +104,49 @@ router.delete("/delete/:id", (req, res) => {
       res.sendStatus(500);
     });
 });
+router.put("/:id", (req, res) => {
+  // GET route code here
+  const newJob = req.body;
+  console.log(newJob);
+  const id = Number(req.params.id);
+  const queryText = `UPDATE "job" 
+   SET "contractor" = $1,
+   "street_address" = $2,
+   "city" = $3,
+   "state" = $4,
+   "zip" = $5,
+   "start_date" = $6,
+   "outside_corners" = $7,
+   "inside_corners" = $8,
+   "status" = $9,
+   "complete" = $10,
+   "comments" = $11,
+   "finish_date" = $12
+ WHERE "id" = $13;`;
+  pool
+    .query(queryText, [
+      newJob.length,
+      newJob.street_address,
+      newJob.city,
+      newJob.state,
+      newJob.zip,
+      newJob.start_date,
+      newJob.outside_corners,
+      newJob.inside_corners,
+      newJob.status,
+      newJob.complete,
+      newJob.comments,
+      newJob.finish_date,
+      id,
+    ])
+    .then(() => {
+      console.log(`Update at id: ${id} successfully`);
+      res.sendStatus(204);
+    })
+    .catch((err) => {
+      console.log("Error in Job Update", err);
+      res.sendStatus(500);
+    });
+});
 
 module.exports = router;

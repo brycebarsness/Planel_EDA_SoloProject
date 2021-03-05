@@ -50,8 +50,21 @@ function* deleteJob(action) {
     console.log("error in Delete Job:", err);
   }
 }
-
+function* updateJob(action) {
+  const newJob = action.payload;
+  const id = action.payload.id;
+  console.log(action.payload);
+  try {
+    console.log("in updateJob", id, newJob);
+    yield axios.put(`/api/job/${id}`, newJob);
+    console.log("in update Wall", newJob.id);
+    yield put({ type: "FETCH_ALL_JOBS" });
+  } catch (err) {
+    console.log("error in update job:", err);
+  }
+}
 function* jobsSaga() {
+  yield takeEvery("UPDATE_JOB", updateJob);
   yield takeEvery("DELETE_JOB", deleteJob);
   yield takeLatest("FETCH_ONE_JOB", fetchOneJob);
   yield takeLatest("POST_NEW_JOB", postNewJob);
