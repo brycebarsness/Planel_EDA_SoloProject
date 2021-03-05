@@ -97,6 +97,7 @@ function jobInput(props) {
       comments: "",
       finish_date: "",
     });
+    props.setToggleForm(false);
   }
 
   const handleJobTextChange = (key) => (event) => {
@@ -125,8 +126,10 @@ function jobInput(props) {
         },
       });
       props.setUpdateJob(null);
+      clearJobForm();
     } else {
       handleJobSubmit(event);
+      // props.setToggleForm(false);
     }
   }
   return (

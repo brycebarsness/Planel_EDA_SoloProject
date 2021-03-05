@@ -18,7 +18,7 @@ function* postNewJob(action) {
   try {
     console.log(newJob);
     const createdJob = yield axios.post("/api/job/addjob", newJob);
-    yield put({ type: "SET_ONE_JOB", payload: createdJob.data });
+    yield put({ type: "FETCH_ALL_JOBS" });
   } catch (err) {
     console.log("error in postNewJob", err);
   }
@@ -45,10 +45,8 @@ function* deleteJob(action) {
   const id = action.payload;
   try {
     console.log("in delete job", id);
-    const response = yield axios.delete(`/api/job/delete/${id}`);
-    yield put({
-      type: "FETCH_ALL_JOBS",
-    });
+    yield axios.delete(`/api/job/delete/${id}`);
+    yield put({ type: "FETCH_ALL_JOBS" });
   } catch (err) {
     console.log("error in Delete Job:", err);
   }
