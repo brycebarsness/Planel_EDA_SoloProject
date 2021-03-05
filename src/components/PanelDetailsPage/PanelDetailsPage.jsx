@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import Moment from "react-moment";
 import WallPanelInput from "../WallPanelInput/WallPanelInput";
-import { TextField, Button, makeStyles } from "@material-ui/core";
+import { TextField, Button, ButtonGroup, makeStyles } from "@material-ui/core";
 
 function PanelDetailsPage() {
   const history = useHistory();
@@ -50,30 +50,37 @@ function PanelDetailsPage() {
               <td>{wallPanel.panel_length}</td>
               <td>{wallPanel.wall_length}</td>
               <td>
-                <Button
-                  variant="outlined"
-                  onClick={() => handlePanelUpdate(wallPanel.wall_panel_id)}
-                >
-                  Update
-                </Button>
-                <Button
-                  variant="outlined"
-                  color="secondary"
-                  onClick={() =>
-                    handlePanelDelete({
-                      wall_panel_id: wallPanel.wall_panel_id,
-                      wall_id: wallPanel.wall_id,
-                    })
-                  }
-                >
-                  Delete
-                </Button>
+                <ButtonGroup>
+                  <Button
+                    variant="outlined"
+                    color="default"
+                    onClick={() => handlePanelUpdate(wallPanel.wall_panel_id)}
+                  >
+                    Update
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    color="secondary"
+                    onClick={() =>
+                      handlePanelDelete({
+                        wall_panel_id: wallPanel.wall_panel_id,
+                        wall_id: wallPanel.wall_id,
+                      })
+                    }
+                  >
+                    Delete
+                  </Button>
+                </ButtonGroup>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      <Button variant="outlined" onClick={() => setTogglePanelForm(true)}>
+      <Button
+        color="default"
+        variant="outlined"
+        onClick={() => setTogglePanelForm(true)}
+      >
         Add Panels
       </Button>
       {togglePanelForm && (

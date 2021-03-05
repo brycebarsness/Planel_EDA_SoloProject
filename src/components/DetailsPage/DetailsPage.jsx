@@ -43,6 +43,12 @@ function DetailsPage() {
     // dispatch type delete payload wall_panel_id
     dispatch({ type: "DELETE_WALL", payload: id });
   };
+  const [updateWall, setUpdateWall] = useState(null);
+  const handleWallUpdate = (id) => {
+    setUpdateWall({
+      id,
+    });
+  };
   const [toggleWallForm, setToggleWallForm] = useState(false);
   // const displayWallPanel = useSelector((state) => state.setWallPanelReducer);
   return (
@@ -120,13 +126,22 @@ function DetailsPage() {
               <td>
                 <ButtonGroup>
                   <Button
+                    color="default"
                     variant="outlined"
                     onClick={() => handlePanelDetails(wall.id)}
+                  >
+                    Panels
+                  </Button>
+                  <Button
+                    color="default"
+                    variant="outlined"
+                    onClick={() => handleWallUpdate(wall.id)}
                   >
                     Edit
                   </Button>
                   <Button
                     variant="outlined"
+                    color="secondary"
                     onClick={() => handleWallDelete(wall.id)}
                   >
                     Delete
@@ -137,12 +152,19 @@ function DetailsPage() {
           ))}
         </tbody>
       </table>
-      <Button variant="outlined" onClick={() => setToggleWallForm(true)}>
+      <Button
+        color="default"
+        variant="outlined"
+        onClick={() => setToggleWallForm(true)}
+      >
         Add A Wall
       </Button>
       {toggleWallForm && (
         <>
-          <WallInput setToggleWallForm={setToggleWallForm} />
+          <WallInput
+            setToggleWallForm={setToggleWallForm}
+            updateWall={updateWall}
+          />
         </>
       )}
     </div>

@@ -25,7 +25,11 @@ function Dashboard(props) {
   return (
     <div>
       <h2>Total Jobs: {jobs.length} </h2>
-      <Button variant="outlined" onClick={() => setToggleForm(true)}>
+      <Button
+        color="default"
+        variant="outlined"
+        onClick={() => setToggleForm(true)}
+      >
         Add Job
       </Button>
       <table>
@@ -45,7 +49,7 @@ function Dashboard(props) {
             <th>Complete</th>
             <th>Comments</th>
             <th>Finish Date</th>
-            <th> Details/Edit/Delete</th>
+            <th> Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -71,11 +75,24 @@ function Dashboard(props) {
               </td>
               <td>
                 <ButtonGroup>
-                  <Button onClick={() => handleDetails(job.id)}>Details</Button>
-
-                  <Button onClick={() => setToggleForm(true)}>Edit</Button>
+                  <Button
+                    color="default"
+                    variant="outlined"
+                    onClick={() => handleDetails(job.id)}
+                  >
+                    Walls
+                  </Button>
 
                   <Button
+                    color="default"
+                    variant="outlined"
+                    onClick={() => setToggleForm(true)}
+                  >
+                    Edit
+                  </Button>
+
+                  <Button
+                    variant="outlined"
                     color="secondary"
                     onClick={() => handleJobDelete(job.id)}
                   >

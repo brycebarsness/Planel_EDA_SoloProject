@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { TextField, Button, makeStyles } from "@material-ui/core";
+import { TextField, Button, ButtonGroup, makeStyles } from "@material-ui/core";
 
 function WallInput(props) {
   const newJob = useSelector((store) => store.setOneJobReducer);
@@ -43,17 +43,18 @@ function WallInput(props) {
           onChange={handleWallChange("length")}
           value={wallToAdd.length}
         />
-        <Button variant="outlined" type="submit" color="error">
-          Submit
-        </Button>
-        <Button
-          onClick={() => props.setToggleWallForm(false)}
-          variant="outlined"
-          type="submit"
-          color="secondary"
-        >
-          Close
-        </Button>
+        <ButtonGroup>
+          <Button variant="outlined" type="submit" color="default">
+            Submit
+          </Button>
+          <Button
+            onClick={() => props.setToggleWallForm(false)}
+            variant="outlined"
+            color="secondary"
+          >
+            Close
+          </Button>
+        </ButtonGroup>
       </form>
     </div>
   );
