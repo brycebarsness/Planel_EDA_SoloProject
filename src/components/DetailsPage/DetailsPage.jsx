@@ -157,13 +157,14 @@ function DetailsPage() {
         variant="outlined"
         onClick={() => setToggleWallForm(true)}
       >
-        Add A Wall
+        +
       </Button>
       {toggleWallForm && (
         <>
           <WallInput
             setToggleWallForm={setToggleWallForm}
             updateWall={updateWall}
+            setUpdateWall={setUpdateWall}
           />
         </>
       )}

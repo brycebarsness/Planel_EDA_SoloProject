@@ -48,6 +48,7 @@ function WallPanelInput(props) {
           quantity: wall_PanelToAdd.quantity,
         },
       });
+      props.setUpdateWallPanel(null);
     } else {
       handleWallPanelSubmit(event);
     }

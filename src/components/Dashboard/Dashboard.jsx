@@ -35,7 +35,7 @@ function Dashboard(props) {
         variant="outlined"
         onClick={() => setToggleForm(true)}
       >
-        Add Job
+        +
       </Button>
       <table>
         <thead>

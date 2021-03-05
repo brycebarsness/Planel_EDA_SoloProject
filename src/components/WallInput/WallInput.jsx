@@ -44,6 +44,7 @@ function WallInput(props) {
           length: wallToAdd.length,
         },
       });
+      props.setUpdateWall(null);
     } else {
       handleWallSubmit(event);
     }
