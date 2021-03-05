@@ -54,17 +54,7 @@ function WallPanelInput(props) {
   }
   return (
     <div>
-      <form
-        onSubmit={
-          handleWallPanelUpdate
-          // setWall_PanelToAdd({
-          // //   quantity: "",
-          // })
-          // setPanelToAdd(""),
-          // props.setTogglePanelForm(false))
-        }
-        autoComplete="off"
-      >
+      <form onSubmit={handleWallPanelUpdate} autoComplete="off">
         <p>Enter Panel Info Below</p>
 
         <ButtonGroup>

@@ -69,4 +69,24 @@ router.delete("/delete/:id", (req, res) => {
     });
 });
 
+router.put("/:id", (req, res) => {
+  // GET route code here
+  const newLength = req.body;
+  console.log(newLength);
+  const id = Number(req.params.id);
+  const queryText = ` UPDATE "wall" 
+   SET "length" = $1
+ WHERE "id" = $2;`;
+  pool
+    .query(queryText, [newLength.length, id])
+    .then(() => {
+      console.log(`Update at id: ${id} successfully`);
+      res.sendStatus(204);
+    })
+    .catch((err) => {
+      console.log("Error in Update", err);
+      res.sendStatus(500);
+    });
+});
+
 module.exports = router;

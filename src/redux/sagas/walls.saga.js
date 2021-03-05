@@ -55,8 +55,22 @@ function* deleteWall(action) {
     console.log("error in Delete Wall:", err);
   }
 }
+function* updateWall(action) {
+  const newLength = action.payload;
+  const id = action.payload.id;
+  console.log(action.payload);
+  try {
+    console.log("in updateWall", id, newLength);
+    yield axios.put(`/api/wall/${id}`, newLength);
+    console.log("in update Wall", newLength.job_id);
+    yield put({ type: "FETCH_WALLS_FROM_JOB", payload: newLength.job_id });
+  } catch (err) {
+    console.log("error in update Wall:", err);
+  }
+}
 
 function* wallsSaga() {
+  yield takeEvery("UPDATE_WALL", updateWall);
   yield takeEvery("DELETE_WALL", deleteWall);
   yield takeLatest("FETCH_WALLS_FROM_JOB", fetchWallsByJobId);
   yield takeLatest("POST_NEW_WALL", postNewWall);

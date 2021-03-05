@@ -32,11 +32,27 @@ function WallInput(props) {
   const handleWallChange = (key) => (event) => {
     setWallToAdd({ ...wallToAdd, [key]: event.target.value });
   };
+  function handleWalllUpdate(event) {
+    console.log("in handleWallUpdate", props.updateWall);
+    if (props.updateWall) {
+      event.preventDefault();
+      dispatch({
+        type: "UPDATE_WALL",
+        payload: {
+          id: props.updateWall.id,
+          job_id: newJob.id,
+          length: wallToAdd.length,
+        },
+      });
+    } else {
+      handleWallSubmit(event);
+    }
+  }
 
   return (
     <div>
       <p>Enter Wall Info Below</p>
-      <form onSubmit={handleWallSubmit} autoComplete="off">
+      <form onSubmit={handleWalllUpdate} autoComplete="off">
         <TextField
           variant="outlined"
           label="length"
