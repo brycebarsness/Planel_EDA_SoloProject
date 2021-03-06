@@ -53,8 +53,8 @@ function Dashboard(props) {
             <th>Status</th>
             <th>Complete</th>
             <th>Comments</th>
-            <th>Finish Date</th>
-            <th> Actions</th>
+            <th>Est. Finish Date</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>

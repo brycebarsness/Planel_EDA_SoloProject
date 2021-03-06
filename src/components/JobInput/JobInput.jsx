@@ -150,7 +150,7 @@ function jobInput(props) {
           />
           <TextField
             variant="outlined"
-            label="street_address"
+            label="street address"
             onChange={handleJobTextChange("street_address")}
             value={jobToAdd.street_address}
           />
@@ -174,19 +174,19 @@ function jobInput(props) {
           />
           <TextField
             variant="outlined"
-            label="start_date"
+            label="start date"
             onChange={handleJobTextChange("start_date")}
             value={jobToAdd.start_date}
           />
           <TextField
             variant="outlined"
-            label="outside_corners"
+            label="outside corners"
             onChange={handleJobTextChange("outside_corners")}
             value={jobToAdd.outside_corners}
           />
           <TextField
             variant="outlined"
-            label="inside_corners"
+            label="inside corners"
             onChange={handleJobTextChange("inside_corners")}
             value={jobToAdd.inside_corners}
           />
@@ -212,11 +212,11 @@ function jobInput(props) {
           />
           <TextField
             variant="outlined"
-            label="finiish_date"
+            label="est finish date"
             onChange={handleJobTextChange("finish_date")}
             value={jobToAdd.finish_date}
           />
-          <Button variant="outlined" type="submit" color="error">
+          <Button variant="outlined" type="submit" color="default">
             Submit
           </Button>
 
