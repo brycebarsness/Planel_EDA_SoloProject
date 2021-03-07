@@ -23,7 +23,7 @@ import InputPage from "../InputPage/InputPage";
 import PanelDetailsPage from "../PanelDetailsPage/PanelDetailsPage";
 import DetailsPage from "../DetailsPage/DetailsPage";
 import "./App.css";
-
+import "../Fonts/Fonts.css";
 function App() {
   const dispatch = useDispatch();
 

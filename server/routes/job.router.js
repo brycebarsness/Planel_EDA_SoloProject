@@ -21,7 +21,30 @@ const {
 router.get("/", (req, res) => {
   // GET route code here
   id = req.params.id;
-  const queryText = `SELECT * FROM "job"`;
+  const queryText = `SELECT 
+	"j"."id", 
+	"j"."user_id",
+	"j"."contractor",
+	"j"."street_address",
+	"j"."city",
+	"j"."state",
+	"j"."zip",
+	"j"."start_date", 
+	"j"."outside_corners", 
+	"j"."inside_corners",
+	"j"."status",
+	"j"."complete", 
+	"j"."comments", 
+	"j"."finish_date", 
+	SUM("wp"."quantity") AS "panel_sum"
+FROM "job" "j"
+INNER JOIN "wall" "w"
+ON "j"."id" = "w"."job_id"
+INNER JOIN "wall_panel" "wp"
+ON "wp"."wall_id" = "w"."id"
+GROUP BY "j"."id";`;
+
+  // `SELECT * FROM "job"`;
   pool
     .query(queryText)
     .then((result) => res.send(result.rows))

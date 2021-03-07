@@ -30,18 +30,14 @@ function Dashboard(props) {
   return (
     <div>
       <h2>Total Jobs: {jobs.length} </h2>
-      <Button
-        color="default"
-        variant="outlined"
-        onClick={() => setToggleForm(true)}
-      >
-        +
-      </Button>
+      <button className="btn" onClick={() => setToggleForm(true)}>
+        Add Job
+      </button>
       <table>
         <thead>
           <tr>
             <th>Job Number</th>
-            <th>User Id</th>
+            <th>Panels </th>
             <th>Contractor</th>
             <th>Street Address</th>
             <th>City</th>
@@ -51,7 +47,6 @@ function Dashboard(props) {
             <th>Outside Corners</th>
             <th>Inside Corners</th>
             <th>Status</th>
-            <th>Complete</th>
             <th>Comments</th>
             <th>Est. Finish Date</th>
             <th>Actions</th>
@@ -61,7 +56,7 @@ function Dashboard(props) {
           {jobs.map((job) => (
             <tr key={job.id}>
               <td>{job.id}</td>
-              <td>{job.user_id}</td>
+              <td>{job.panel_sum}</td>
               <td>{job.contractor}</td>
               <td>{job.street_address}</td>
               <td>{job.city}</td>
@@ -73,7 +68,6 @@ function Dashboard(props) {
               <td>{job.outside_corners}</td>
               <td>{job.inside_corners}</td>
               <td>{job.status}</td>
-              <td>{job.complete}</td>
               <td>{job.comments}</td>
               <td>
                 <Moment format="YYYY/MM/DD">{job.finish_date}</Moment>

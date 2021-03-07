@@ -58,38 +58,56 @@ function DetailsPage() {
         <tbody>
           <tr>
             <th>Job Number</th>
-            <th>User Id</th>
-            <th>Contractor</th>
-            <th>Street Address</th>
-            <th>City</th>
-            <th>State</th>
-            <th>Zip Code</th>
-            <th>Start Date </th>
-            <th>Outside Corners</th>
-            <th>Inside Corners</th>
-            <th>Status</th>
-            <th>Complete</th>
-            <th>Comments</th>
-            <th>Finish Date</th>
+            <td>{newJob.id}</td>
           </tr>
           <tr>
-            <td>{newJob.id}</td>
+            <th>User Id</th>
             <td>{newJob.user_id}</td>
+          </tr>
+          <tr>
+            <th>Contractor</th>
             <td>{newJob.contractor}</td>
+          </tr>
+          <tr>
+            <th>Street Address</th>
             <td>{newJob.street_address}</td>
+          </tr>
+          <tr>
+            <th>City</th>
             <td>{newJob.city}</td>
+          </tr>
+          <tr>
+            <th>State</th>
             <td>{newJob.state}</td>
+          </tr>
+          <tr>
+            <th>Zip Code</th>
             <td>{newJob.zip}</td>
-
+          </tr>
+          <tr>
+            <th>Start Date </th>
             <Moment format="YYYY/MM/DD">
               <td>{newJob.start_date}</td>
             </Moment>
-
+          </tr>
+          <tr>
+            <th>Outside Corners</th>
             <td>{newJob.outside_corners}</td>
+          </tr>
+          <tr>
+            <th>Inside Corners</th>
             <td>{newJob.inside_corners}</td>
+          </tr>
+          <tr>
+            <th>Status</th>
             <td>{newJob.status}</td>
-            <td>{newJob.complete}</td>
+          </tr>
+          <tr>
+            <th>Comments</th>
             <td>{newJob.comments}</td>
+          </tr>
+          <tr>
+            <th>Finish Date</th>
             <td>
               <Moment format="YYYY/MM/DD">{newJob.finish_date}</Moment>
             </td>
@@ -118,6 +136,7 @@ function DetailsPage() {
             <th>UPDATE/DELETE</th>
           </tr>
         </thead>
+        <tfooter> </tfooter>
         <tbody>
           {wallsPerJob.map((wall, i) => (
             <tr key={wall.id}>
