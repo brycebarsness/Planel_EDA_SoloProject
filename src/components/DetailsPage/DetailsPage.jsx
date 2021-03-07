@@ -4,7 +4,7 @@ import { useHistory, useParams } from "react-router-dom";
 import Moment from "react-moment";
 import WallInput from "../WallInput/WallInput";
 import { Button, ButtonGroup } from "@material-ui/core";
-
+import AddCircleIcon from "@material-ui/icons/AddCircle";
 /*
 
   1. Get redux in shape, so that you confirm all data is good when the this component loads (job, walls, wall panels, panels)
@@ -176,7 +176,7 @@ function DetailsPage() {
         variant="outlined"
         onClick={() => setToggleWallForm(true)}
       >
-        +
+        Add Wall
       </Button>
       {toggleWallForm && (
         <>

@@ -6,6 +6,7 @@ import axios from "axios";
 import { useHistory, useParams } from "react-router-dom";
 import { Button, ButtonGroup } from "@material-ui/core";
 import JobInput from "../JobInput/JobInput";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
 
 function Dashboard(props) {
   const jobs = useSelector((state) => state.setAllJobsReducer);
@@ -30,9 +31,11 @@ function Dashboard(props) {
   return (
     <div>
       <h2>Total Jobs: {jobs.length} </h2>
+
       <button className="btn" onClick={() => setToggleForm(true)}>
         Add Job
       </button>
+
       <table>
         <thead>
           <tr>

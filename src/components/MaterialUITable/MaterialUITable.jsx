@@ -46,19 +46,30 @@ const tableIcons = {
   ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
 };
 
-const api = axios.create({
-  baseURL: `/api`,
-});
+function MaterialTable() {
+  const jobs = useSelector((state) => state.setAllJobsReducer);
+  const dispatch = useDispatch();
+  useEffect(() => dispatch({ type: "FETCH_ALL_JOBS" }), []);
+  const history = useHistory();
+  const handleDetails = (id) => {
+    history.push(`/details/${id}`); // push to details view
+  };
+  const handleJobDelete = (id) => {
+    // dispatch type delete payload wall_panel_id
+    dispatch({ type: "DELETE_JOB", payload: id });
+  };
 
-function validateEmail(email) {
-  const re = /^((?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\]))$/;
-  return re.test(String(email).toLowerCase());
-}
+  const [toggleForm, setToggleForm] = useState(false);
+  const [updateJob, setUpdateJob] = useState(null);
+  function handleJobUpdate(id) {
+    setUpdateJob({
+      id,
+    });
+  }
 
-function App() {
   var columns = [
     { title: "id", field: "id", hidden: true },
-    { title: "user_id", field: "user_id" },
+    { title: "panel_sum", field: "panel_sum" },
     { title: "contractor", field: "contractor" },
     { title: "street_address", field: "street_address" },
     { title: "city", field: "city" },
@@ -74,151 +85,64 @@ function App() {
   ];
   const [data, setData] = useState([]); //table data
 
-  //for error handling
-  const [iserror, setIserror] = useState(false);
-  const [errorMessages, setErrorMessages] = useState([]);
-
   useEffect(() => {
-    api
-      .get("/job")
-      .then((res) => {
-        setData(res.data.data);
-      })
-      .catch((error) => {
-        console.log("Error");
-      });
+    setData();
   }, []);
-
-  const handleRowUpdate = (newData, oldData, resolve) => {
-    //validation
-    let errorList = [];
-    if (newData.contractor === "") {
-      errorList.push("contractor");
-    }
-    if (newData.city === "") {
-      errorList.push("Please enter city");
-    }
-    if (newData.state) {
-      errorList.push("Please enter a valid state");
-    }
-
-    if (errorList.length < 1) {
-      api
-        .patch("/job/" + newData.id, newData)
-        .then((res) => {
-          const dataUpdate = [...data];
-          const index = oldData.tableData.id;
-          dataUpdate[index] = newData;
-          setData([...dataUpdate]);
-          resolve();
-          setIserror(false);
-          setErrorMessages([]);
-        })
-        .catch((error) => {
-          setErrorMessages(["Update failed! Server error"]);
-          setIserror(true);
-          resolve();
-        });
-    } else {
-      setErrorMessages(errorList);
-      setIserror(true);
-      resolve();
-    }
-  };
-
-  const handleRowAdd = (newData, resolve) => {
-    //validation
-    let errorList = [];
-    if (newData.first_name === undefined) {
-      errorList.push("Please enter first name");
-    }
-    if (newData.last_name === undefined) {
-      errorList.push("Please enter last name");
-    }
-    if (newData.email === undefined || validateEmail(newData.email) === false) {
-      errorList.push("Please enter a valid email");
-    }
-
-    if (errorList.length < 1) {
-      //no error
-      api
-        .post("/users", newData)
-        .then((res) => {
-          let dataToAdd = [...data];
-          dataToAdd.push(newData);
-          setData(dataToAdd);
-          resolve();
-          setErrorMessages([]);
-          setIserror(false);
-        })
-        .catch((error) => {
-          setErrorMessages(["Cannot add data. Server error!"]);
-          setIserror(true);
-          resolve();
-        });
-    } else {
-      setErrorMessages(errorList);
-      setIserror(true);
-      resolve();
-    }
-  };
-
-  const handleRowDelete = (oldData, resolve) => {
-    api
-      .delete("/users/" + oldData.id)
-      .then((res) => {
-        const dataDelete = [...data];
-        const index = oldData.tableData.id;
-        dataDelete.splice(index, 1);
-        setData([...dataDelete]);
-        resolve();
-      })
-      .catch((error) => {
-        setErrorMessages(["Delete failed! Server error"]);
-        setIserror(true);
-        resolve();
-      });
-  };
 
   return (
     <div className="App">
       <Grid container spacing={1}>
         <Grid item xs={3}></Grid>
         <Grid item xs={6}>
-          <div>
-            {iserror && (
-              <Alert severity="error">
-                {errorMessages.map((msg, i) => {
-                  return <div key={i}>{msg}</div>;
-                })}
-              </Alert>
-            )}
-          </div>
+          <div></div>
           <MaterialTable
             title="User data from remote source"
             columns={columns}
             data={data}
             icons={tableIcons}
-            editable={{
-              onRowUpdate: (newData, oldData) =>
-                new Promise((resolve) => {
-                  handleRowUpdate(newData, oldData, resolve);
-                }),
-              onRowAdd: (newData) =>
-                new Promise((resolve) => {
-                  handleRowAdd(newData, resolve);
-                }),
-              onRowDelete: (oldData) =>
-                new Promise((resolve) => {
-                  handleRowDelete(oldData, resolve);
-                }),
-            }}
+            editable={{}}
           />
         </Grid>
         <Grid item xs={3}></Grid>
       </Grid>
     </div>
   );
+  <ButtonGroup>
+    <Button
+      color="default"
+      variant="outlined"
+      onClick={() => handleDetails(job.id)}
+    >
+      Walls
+    </Button>
+
+    <Button
+      color="default"
+      variant="outlined"
+      onClick={() => handleJobUpdate(job.id)}
+    >
+      Edit
+    </Button>
+
+    <Button
+      variant="outlined"
+      color="secondary"
+      onClick={() => handleJobDelete(job.id)}
+    >
+      Delete
+    </Button>
+  </ButtonGroup>;
+  {
+    toggleForm && (
+      <>
+        <JobInput
+          setToggleForm={setToggleForm}
+          updateJob={updateJob}
+          setUpdateJob={setUpdateJob}
+        />
+      </>
+    );
+  }
 }
 
-export default App;
+export default MaterialTable;

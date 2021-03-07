@@ -81,7 +81,7 @@ function PanelDetailsPage() {
         variant="outlined"
         onClick={() => setTogglePanelForm(true)}
       >
-        +
+        Add Panel
       </Button>
       {togglePanelForm && (
         <>
