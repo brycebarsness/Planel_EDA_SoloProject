@@ -33,12 +33,12 @@ function Dashboard(props) {
 
   return (
     <div>
-      <h2>Total Jobs: {jobs.length} </h2>
-
-      <button className="btn" onClick={() => setToggleForm(true)}>
-        Add Job
-      </button>
-
+      <h2>
+        Total Jobs: {jobs.length}
+        <button className="btn" onClick={() => setToggleForm(true)}>
+          Add Job
+        </button>
+      </h2>
       <table>
         <thead>
           <tr>
