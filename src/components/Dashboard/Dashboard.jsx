@@ -7,6 +7,8 @@ import { useHistory, useParams } from "react-router-dom";
 import { Button, ButtonGroup } from "@material-ui/core";
 import JobInput from "../JobInput/JobInput";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
+import BuildIcon from "@material-ui/icons/Build";
+import ElevatedCards02 from "../ElevatedCards/ElevatedCards02";
 
 function Dashboard(props) {
   const jobs = useSelector((state) => state.setAllJobsReducer);
@@ -28,6 +30,7 @@ function Dashboard(props) {
       id,
     });
   }
+
   return (
     <div>
       <h2>Total Jobs: {jobs.length} </h2>
@@ -115,6 +118,7 @@ function Dashboard(props) {
           />
         </>
       )}
+      <ElevatedCards02 />
     </div>
   );
 }

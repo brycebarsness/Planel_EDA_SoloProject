@@ -9,6 +9,8 @@ import rootReducer from "./redux/reducers/_root.reducer"; // imports ./redux/red
 import rootSaga from "./redux/sagas/_root.saga"; // imports ./redux/sagas/index.js
 
 import App from "./components/App/App";
+import ElevatedCardHeader01 from "./ElevatedCardHeader01";
+import createOverrides from "./theme";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -32,7 +34,8 @@ const store = createStore(
 // rootSaga contains all of our other sagas
 sagaMiddleware.run(rootSaga);
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
-const theme = createMuiTheme({
+
+const baseTheme = createMuiTheme({
   palette: {
     primary: {
       main: "#4e342e",
@@ -42,10 +45,17 @@ const theme = createMuiTheme({
     },
   },
 });
+
 ReactDOM.render(
-  <ThemeProvider theme={theme}>
+  <ThemeProvider
+    theme={{
+      ...baseTheme,
+      overrides: createOverrides(baseTheme),
+    }}
+  >
     <Provider store={store}>
       <App />
+      {/* <ElevatedCardHeader01 /> */}
     </Provider>
   </ThemeProvider>,
   document.getElementById("react-root")

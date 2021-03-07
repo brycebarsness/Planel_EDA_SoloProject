@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import Moment from "react-moment";
 import WallInput from "../WallInput/WallInput";
+
 import { Button, ButtonGroup } from "@material-ui/core";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 /*
@@ -45,11 +46,13 @@ function DetailsPage() {
   };
   const [updateWall, setUpdateWall] = useState(null);
   const handleWallUpdate = (id) => {
+    setToggleWallForm(true);
     setUpdateWall({
       id,
     });
   };
   const [toggleWallForm, setToggleWallForm] = useState(false);
+
   // const displayWallPanel = useSelector((state) => state.setWallPanelReducer);
   return (
     <div>

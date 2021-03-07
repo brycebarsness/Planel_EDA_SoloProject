@@ -22,6 +22,7 @@ function PanelDetailsPage() {
     dispatch({ type: "DELETE_WALL_PANEL", payload: objectOfIds });
   };
   const handlePanelUpdate = (id) => {
+    setTogglePanelForm(true);
     setUpdateWallPanel({
       id,
       wall_id: "",
@@ -56,7 +57,7 @@ function PanelDetailsPage() {
                     color="default"
                     onClick={() => handlePanelUpdate(wallPanel.wall_panel_id)}
                   >
-                    Update
+                    Edit
                   </Button>
                   <Button
                     variant="outlined"
