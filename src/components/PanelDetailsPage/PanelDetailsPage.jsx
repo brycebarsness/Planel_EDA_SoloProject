@@ -37,8 +37,8 @@ function PanelDetailsPage() {
       <table>
         <thead>
           <tr>
-            <th>Quantity</th>
             <th>Panel Size (length)</th>
+            <th>Quantity</th>
             <th>Wall Length</th>
             <th>UPDATE/DELETE</th>
           </tr>
@@ -46,8 +46,8 @@ function PanelDetailsPage() {
         <tbody>
           {wallPanelsPerWall.map((wallPanel, i) => (
             <tr key={wallPanel.wall_panel_id}>
-              <td>{wallPanel.wall_panel_quantity}</td>
               <td>{wallPanel.panel_length}</td>
+              <td>{wallPanel.wall_panel_quantity}</td>
               <td>{wallPanel.wall_length}</td>
               <td>
                 <ButtonGroup>
