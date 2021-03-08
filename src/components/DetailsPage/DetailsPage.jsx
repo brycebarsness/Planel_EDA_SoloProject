@@ -65,7 +65,6 @@ function DetailsPage() {
   // const displayWallPanel = useSelector((state) => state.setWallPanelReducer);
   return (
     <div>
-      <h2></h2>
       <Grid container alignItems="stretch">
         <Grid item component={Card} xs>
           <CardContent>
@@ -82,57 +81,83 @@ function DetailsPage() {
               <div className={"MuiCardContent-inner"}>
                 <Table>
                   <TableRow>
-                    <TableHead>Job Number</TableHead>
+                    <TableHead>
+                      <TableCell>Job Number</TableCell>
+                    </TableHead>
                     <TableCell>{newJob.id}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableHead>User Id</TableHead>
+                    <TableHead>
+                      <TableCell>User Id</TableCell>
+                    </TableHead>
                     <TableCell>{newJob.user_id}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableHead>Contractor</TableHead>
+                    <TableHead>
+                      <TableCell>Contractor</TableCell>
+                    </TableHead>
                     <TableCell>{newJob.contractor}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableHead>Street Address</TableHead>
+                    <TableHead>
+                      <TableCell>Street Address</TableCell>
+                    </TableHead>
                     <TableCell>{newJob.street_address}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableHead>City</TableHead>
+                    <TableHead>
+                      <TableCell>City</TableCell>
+                    </TableHead>
                     <TableCell>{newJob.city}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableHead>State</TableHead>
+                    <TableHead>
+                      <TableCell>State</TableCell>
+                    </TableHead>
                     <TableCell>{newJob.state}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableHead>Zip Code</TableHead>
+                    <TableHead>
+                      <TableCell>Zip Code</TableCell>
+                    </TableHead>
                     <TableCell>{newJob.zip}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableHead>Start Date</TableHead>
+                    <TableHead>
+                      <TableCell>Start Date</TableCell>
+                    </TableHead>
                     <TableCell>
                       <Moment format="YYYY/MM/DD">{newJob.start_date}</Moment>
                     </TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableHead>Outside Corners</TableHead>
+                    <TableHead>
+                      <TableCell>Outside Corners</TableCell>
+                    </TableHead>
                     <TableCell>{newJob.outside_corners}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableHead>Inside Corners</TableHead>
+                    <TableHead>
+                      <TableCell>Inside Corners</TableCell>
+                    </TableHead>
                     <TableCell>{newJob.inside_corners}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableHead>Status</TableHead>
+                    <TableHead>
+                      <TableCell>Status</TableCell>
+                    </TableHead>
                     <TableCell>{newJob.status}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableHead>Comments</TableHead>
+                    <TableHead>
+                      <TableCell>Comments</TableCell>
+                    </TableHead>
                     <TableCell>{newJob.comments}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableHead>Finish Date</TableHead>
+                    <TableHead>
+                      <TableCell>Finish Date</TableCell>
+                    </TableHead>
                     <TableCell>
                       <Moment format="YYYY/MM/DD">{newJob.finish_date}</Moment>
                     </TableCell>
@@ -248,80 +273,6 @@ function DetailsPage() {
           </CardActions>
         </Grid>
       </Grid>
-
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Panel Size (length)</TableCell>
-            <TableCell>Quantity</TableCell>
-          </TableRow>
-        </TableHead>
-        {wallPanelsPerJob.map((wallPanel, i) => (
-          <TableRow key={i}>
-            <TableCell>{wallPanel.length}</TableCell>
-            <TableCell>{wallPanel.sum}</TableCell>
-          </TableRow>
-        ))}
-      </Table>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Wall ID</TableCell>
-            <TableCell>Wall Length</TableCell>
-            <TableCell>Actions</TableCell>
-          </TableRow>
-        </TableHead>
-
-        <TableBody>
-          {wallsPerJob.map((wall, i) => (
-            <TableRow key={wall.id}>
-              <TableCell>{wall.id}</TableCell>
-              <TableCell>{wall.length}</TableCell>
-              <TableCell>
-                <ButtonGroup>
-                  <Button
-                    color="default"
-                    variant="outlined"
-                    onClick={() => handlePanelDetails(wall.id)}
-                  >
-                    Panels
-                  </Button>
-                  <Button
-                    color="default"
-                    variant="outlined"
-                    onClick={() => handleWallUpdate(wall.id)}
-                  >
-                    Edit
-                  </Button>
-                  <Button
-                    variant="outlined"
-                    color="secondary"
-                    onClick={() => handleWallDelete(wall.id)}
-                  >
-                    Delete
-                  </Button>
-                </ButtonGroup>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-      <Button
-        color="default"
-        variant="outlined"
-        onClick={() => setToggleWallForm(true)}
-      >
-        Add Wall
-      </Button>
-      {toggleWallForm && (
-        <>
-          <WallInput
-            setToggleWallForm={setToggleWallForm}
-            updateWall={updateWall}
-            setUpdateWall={setUpdateWall}
-          />
-        </>
-      )}
     </div>
   );
 }
