@@ -11,43 +11,47 @@ import JobInput from "../JobInput/JobInput";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import Moment from "react-moment";
-import WallInput from "../WallInput/WallInput";
+import WallPanelInput from "../WallPanelInput/WallPanelInput";
 
 import { Button, ButtonGroup } from "@material-ui/core";
 
 function ElevatedCardHeader01(props) {
-  const jobs = useSelector((state) => state.setAllJobsReducer);
-  const dispatch = useDispatch();
-  useEffect(() => dispatch({ type: "FETCH_ALL_JOBS" }), []);
   const history = useHistory();
-  const handleDetails = (id) => {
-    history.push(`/details/${id}`); // push to details view
-  };
-  const handleJobDelete = (id) => {
+  const wallPanelsPerWall = useSelector(
+    (state) => state.setWallPanelsPerWallReducer
+  );
+  const [updateWallPanel, setUpdateWallPanel] = useState(null);
+  const dispatch = useDispatch();
+  let { id } = useParams();
+  useEffect(() => {
+    dispatch({ type: "FETCH_WALL_PANEL_WALL", payload: id });
+  }, [dispatch]);
+
+  const handlePanelDelete = (objectOfIds) => {
     // dispatch type delete payload wall_panel_id
-    dispatch({ type: "DELETE_JOB", payload: id });
+    dispatch({ type: "DELETE_WALL_PANEL", payload: objectOfIds });
   };
-
-  const [toggleForm, setToggleForm] = useState(false);
-  const [updateJob, setUpdateJob] = useState(null);
-  function handleJobUpdate(id) {
-    setUpdateJob({
+  const handlePanelUpdate = (id) => {
+    setTogglePanelForm(true);
+    setUpdateWallPanel({
       id,
+      wall_id: "",
+      panel_id: "",
+      quantity: "",
     });
-  }
-
+    console.log(updateWallPanel);
+  };
+  const [togglePanelForm, setTogglePanelForm] = useState(false);
   return (
     <div>
-      <h2>Total Jobs: {jobs.length} </h2>
-
       <button className="btn" onClick={() => setToggleForm(true)}>
         Add Job
       </button>
       <Card className={"MuiElevatedCard--01"}>
         <CardHeader
           className={"MuiCardHeader-root"}
-          title={"Job Details"}
-          subheader={"Panel totals"}
+          title={"Panel Details"}
+          subheader={"Per Wall"}
           classes={{
             title: "MuiCardHeader-title",
             subheader: "MuiCardHeader-subheader",
@@ -58,64 +62,41 @@ function ElevatedCardHeader01(props) {
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>Job Number</TableCell>
-                  <TableCell>Panels</TableCell>
-                  <TableCell>Outside Corners</TableCell>
-                  <TableCell>Inside Corners</TableCell>
-                  <TableCell>Street Address</TableCell>
-                  <TableCell>City</TableCell>
-                  <TableCell>State</TableCell>
-                  <TableCell>Zip</TableCell>
-                  <TableCell>Start Date</TableCell>
-                  <TableCell>Status </TableCell>
-                  <TableCell>Comments</TableCell>
-                  <TableCell>Pour Date</TableCell>
+                  <TableCell>Panel Size (inches)</TableCell>
+                  <TableCell>Quantity</TableCell>
+                  <TableCell>Wall Length (feet)</TableCell>
                   <TableCell>Actions</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {jobs.map((job) => (
-                  <TableRow key={job.id}>
+                {wallPanelsPerWall.map((wallPanel) => (
+                  <TableRow key={wallPanel.wall_panel_id}>
                     <TableCell component="th" scope="row">
-                      {job.id}
+                      {wallPanel.panel_length}
                     </TableCell>
-                    <TableCell>{job.panel_sum}</TableCell>
-                    <TableCell>{job.outside_corners}</TableCell>
-                    <TableCell>{job.inside_corners}</TableCell>
-                    <TableCell>{job.street_address}</TableCell>
-                    <TableCell>{job.city}</TableCell>
-                    <TableCell>{job.state}</TableCell>
-                    <TableCell>{job.zip}</TableCell>
-                    <TableCell>
-                      <Moment format="YYYY/MM/DD">{job.start_date}</Moment>
-                    </TableCell>
-                    <TableCell>{job.status}</TableCell>
-                    <TableCell>{job.comments}</TableCell>
-                    <TableCell>
-                      <Moment format="YYYY/MM/DD">{job.finish_date}</Moment>
-                    </TableCell>
+                    <TableCell>{wallPanel.wall_panel_quantity}</TableCell>
+                    <TableCell>{wallPanel.wall_length}</TableCell>
+
                     <TableCell>
                       <ButtonGroup>
                         <Button
-                          color="default"
                           variant="outlined"
-                          onClick={() => handleDetails(job.id)}
-                        >
-                          Walls
-                        </Button>
-
-                        <Button
                           color="default"
-                          variant="outlined"
-                          onClick={() => handleJobUpdate(job.id)}
+                          onClick={() =>
+                            handlePanelUpdate(wallPanel.wall_panel_id)
+                          }
                         >
                           Edit
                         </Button>
-
                         <Button
                           variant="outlined"
                           color="secondary"
-                          onClick={() => handleJobDelete(job.id)}
+                          onClick={() =>
+                            handlePanelDelete({
+                              wall_panel_id: wallPanel.wall_panel_id,
+                              wall_id: wallPanel.wall_id,
+                            })
+                          }
                         >
                           Delete
                         </Button>
@@ -128,13 +109,17 @@ function ElevatedCardHeader01(props) {
           </div>
         </CardContent>
       </Card>
+      <button className="btn" onClick={() => setTogglePanelForm(true)}>
+        Add Panel
+      </button>
 
-      {toggleForm && (
+      {togglePanelForm && (
         <>
-          <JobInput
-            setToggleForm={setToggleForm}
-            updateJob={updateJob}
-            setUpdateJob={setUpdateJob}
+          <WallPanelInput
+            setTogglePanelForm={setTogglePanelForm}
+            id={id}
+            updateWallPanel={updateWallPanel}
+            setUpdateWallPanel={setUpdateWallPanel}
           />
         </>
       )}

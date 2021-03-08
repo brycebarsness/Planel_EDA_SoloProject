@@ -1,11 +1,21 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import Table from "@material-ui/core/Table";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import CardHeader from "@material-ui/core/CardHeader";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import JobInput from "../JobInput/JobInput";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import Moment from "react-moment";
 import WallPanelInput from "../WallPanelInput/WallPanelInput";
-import { TextField, Button, ButtonGroup, makeStyles } from "@material-ui/core";
 
-function PanelDetailsPage() {
+import { Button, ButtonGroup, CardActions } from "@material-ui/core";
+
+function PanelDetailsPage(props) {
   const history = useHistory();
   const wallPanelsPerWall = useSelector(
     (state) => state.setWallPanelsPerWallReducer
@@ -34,56 +44,91 @@ function PanelDetailsPage() {
   const [togglePanelForm, setTogglePanelForm] = useState(false);
   return (
     <div>
-      {/* <h2>Wall Length: {wallPanelsPerWall.wall_length}</h2> */}
-      <table>
-        <thead>
-          <tr>
-            <th>Panel Size (length)</th>
-            <th>Quantity</th>
-            <th>Wall Length</th>
-            <th>UPDATE/DELETE</th>
-          </tr>
-        </thead>
-        <tbody>
-          {wallPanelsPerWall.map((wallPanel, i) => (
-            <tr key={wallPanel.wall_panel_id}>
-              <td>{wallPanel.panel_length}</td>
-              <td>{wallPanel.wall_panel_quantity}</td>
-              <td>{wallPanel.wall_length}</td>
-              <td>
-                <ButtonGroup>
-                  <Button
-                    variant="outlined"
-                    color="default"
-                    onClick={() => handlePanelUpdate(wallPanel.wall_panel_id)}
-                  >
-                    Edit
-                  </Button>
-                  <Button
-                    variant="outlined"
-                    color="secondary"
-                    onClick={() =>
-                      handlePanelDelete({
-                        wall_panel_id: wallPanel.wall_panel_id,
-                        wall_id: wallPanel.wall_id,
-                      })
-                    }
-                  >
-                    Delete
-                  </Button>
-                </ButtonGroup>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <Button
-        color="default"
-        variant="outlined"
-        onClick={() => setTogglePanelForm(true)}
-      >
+      <button className="btn" onClick={() => setToggleForm(true)}>
+        Add Job
+      </button>
+      <Card className={"MuiElevatedCard--01"}>
+        <CardHeader
+          className={"MuiCardHeader-root"}
+          title={"Panel Details"}
+          subheader={"Per Wall"}
+          classes={{
+            title: "MuiCardHeader-title",
+            subheader: "MuiCardHeader-subheader",
+          }}
+        />
+        <CardContent className={"MuiCardContent-root"}>
+          <div className={"MuiCardContent-inner"}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Panel Size (inches)</TableCell>
+                  <TableCell>Quantity</TableCell>
+                  <TableCell>Wall Length (feet)</TableCell>
+                  <TableCell>Actions</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {wallPanelsPerWall.map((wallPanel) => (
+                  <TableRow key={wallPanel.wall_panel_id}>
+                    <TableCell component="th" scope="row">
+                      {wallPanel.panel_length}
+                    </TableCell>
+                    <TableCell>{wallPanel.wall_panel_quantity}</TableCell>
+                    <TableCell>{wallPanel.wall_length}</TableCell>
+
+                    <TableCell>
+                      <ButtonGroup>
+                        <Button
+                          variant="outlined"
+                          color="default"
+                          onClick={() =>
+                            handlePanelUpdate(wallPanel.wall_panel_id)
+                          }
+                        >
+                          Edit
+                        </Button>
+                        <Button
+                          variant="outlined"
+                          color="secondary"
+                          onClick={() =>
+                            handlePanelDelete({
+                              wall_panel_id: wallPanel.wall_panel_id,
+                              wall_id: wallPanel.wall_id,
+                            })
+                          }
+                        >
+                          Delete
+                        </Button>
+                      </ButtonGroup>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        </CardContent>
+        <CardActions>
+          <button className="btn" onClick={() => setTogglePanelForm(true)}>
+            Add Panel
+          </button>
+
+          {togglePanelForm && (
+            <>
+              <WallPanelInput
+                setTogglePanelForm={setTogglePanelForm}
+                id={id}
+                updateWallPanel={updateWallPanel}
+                setUpdateWallPanel={setUpdateWallPanel}
+              />
+            </>
+          )}
+        </CardActions>
+      </Card>
+      {/* <button className="btn" onClick={() => setTogglePanelForm(true)}>
         Add Panel
-      </Button>
+      </button>
+
       {togglePanelForm && (
         <>
           <WallPanelInput
@@ -93,7 +138,7 @@ function PanelDetailsPage() {
             setUpdateWallPanel={setUpdateWallPanel}
           />
         </>
-      )}
+      )} */}
     </div>
   );
 }
