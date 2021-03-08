@@ -39,16 +39,15 @@ function Dashboard(props) {
 
   return (
     <div>
-      <h2>Total Jobs: {jobs.length} </h2>
-
+      {/* <h2>Select Add Job to add job</h2> */}
       <button className="btn" onClick={() => setToggleForm(true)}>
         Add Job
       </button>
       <Card className={"MuiElevatedCard--01"}>
         <CardHeader
           className={"MuiCardHeader-root"}
-          title={"Job Details"}
-          subheader={"Panel totals"}
+          title={`Total Jobs: ${jobs.length}`}
+          subheader={"Select wall button to add wall"}
           classes={{
             title: "MuiCardHeader-title",
             subheader: "MuiCardHeader-subheader",

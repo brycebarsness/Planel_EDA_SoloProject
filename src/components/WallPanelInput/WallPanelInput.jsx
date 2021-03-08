@@ -55,6 +55,8 @@ function WallPanelInput(props) {
       props.setTogglePanelForm(false);
     }
   }
+
+  const panelLengths = [36, 30, 24, 18, 12, 8, 6, 4, 2, 1];
   return (
     <div>
       <form onSubmit={handleWallPanelUpdate} autoComplete="off">
@@ -133,7 +135,7 @@ function WallPanelInput(props) {
           </Button>
         </ButtonGroup>
 
-        <p>Panel Length: {panelToAdd}</p>
+        <p>Panel Length: {panelLengths[panelToAdd - 1]}</p>
         <TextField
           variant="outlined"
           label="quantity"

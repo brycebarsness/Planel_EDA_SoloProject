@@ -15,6 +15,7 @@ import TableCell from "@material-ui/core/TableCell";
 import { Button, ButtonGroup } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
+import DStyle from "./DStyle.css";
 /*
 
   1. Get redux in shape, so that you confirm all data is good when the this component loads (job, walls, wall panels, panels)
@@ -61,10 +62,16 @@ function DetailsPage() {
     });
   };
   const [toggleWallForm, setToggleWallForm] = useState(false);
-
+  const handleDetailsBack = (id) => {
+    history.push(`/user`); // push to details view
+  };
   // const displayWallPanel = useSelector((state) => state.setWallPanelReducer);
   return (
     <div>
+      <button className="btn" onClick={() => handleDetailsBack()}>
+        Back
+      </button>
+      <h2>Select panel button to add panel</h2>
       <Grid container alignItems="stretch">
         <Grid item component={Card} xs>
           <CardContent>
@@ -203,7 +210,7 @@ function DetailsPage() {
           <CardHeader
             className={"MuiCardHeader-root"}
             title={"Walls"}
-            subheader={"Add Panels by Wall"}
+            subheader={"Select Add Wall to Add Wall "}
             classes={{
               title: "MuiCardHeader-title",
               subheader: "MuiCardHeader-subheader",
@@ -254,13 +261,10 @@ function DetailsPage() {
             </Table>
           </CardContent>
           <CardActions>
-            <Button
-              color="default"
-              variant="outlined"
-              onClick={() => setToggleWallForm(true)}
-            >
+            <button className="btn" onClick={() => setToggleWallForm(true)}>
               Add Wall
-            </Button>
+            </button>
+
             {toggleWallForm && (
               <>
                 <WallInput

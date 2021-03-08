@@ -20,6 +20,12 @@ function PanelDetailsPage(props) {
   const wallPanelsPerWall = useSelector(
     (state) => state.setWallPanelsPerWallReducer
   );
+  const jobId = useSelector((state) => state.setOneJobReducer.id);
+
+  const handleWallBack = (id) => {
+    history.push(`/details/${jobId}`); // push to details view
+  };
+
   const [updateWallPanel, setUpdateWallPanel] = useState(null);
   const dispatch = useDispatch();
   let { id } = useParams();
@@ -44,14 +50,14 @@ function PanelDetailsPage(props) {
   const [togglePanelForm, setTogglePanelForm] = useState(false);
   return (
     <div>
-      <button className="btn" onClick={() => setToggleForm(true)}>
-        Add Job
+      <button className="btn" onClick={() => handleWallBack()}>
+        Back
       </button>
       <Card className={"MuiElevatedCard--01"}>
         <CardHeader
           className={"MuiCardHeader-root"}
           title={"Panel Details"}
-          subheader={"Per Wall"}
+          subheader={"Select Add Panel to Add Panel"}
           classes={{
             title: "MuiCardHeader-title",
             subheader: "MuiCardHeader-subheader",
