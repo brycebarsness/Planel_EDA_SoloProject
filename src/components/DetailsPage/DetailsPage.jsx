@@ -175,6 +175,15 @@ function DetailsPage() {
         </Grid>
 
         <Grid item component={Card} xs>
+          <CardHeader
+            className={"MuiCardHeader-root"}
+            title={"Walls"}
+            subheader={"Add Panels by Wall"}
+            classes={{
+              title: "MuiCardHeader-title",
+              subheader: "MuiCardHeader-subheader",
+            }}
+          />
           <CardContent>
             <Table>
               <TableHead>
