@@ -1,14 +1,19 @@
 import { useState, useEffect } from "react";
-import { forwardRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import Moment from "react-moment";
-import axios from "axios";
-import { useHistory, useParams } from "react-router-dom";
-import { Button, ButtonGroup } from "@material-ui/core";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import Table from "@material-ui/core/Table";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import CardHeader from "@material-ui/core/CardHeader";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
 import JobInput from "../JobInput/JobInput";
-import AddCircleIcon from "@material-ui/icons/AddCircle";
-import BuildIcon from "@material-ui/icons/Build";
-import ElevatedCards02 from "../ElevatedCards/ElevatedCards02";
+import { useSelector, useDispatch } from "react-redux";
+import { useHistory, useParams } from "react-router-dom";
+import Moment from "react-moment";
+import WallInput from "../WallInput/WallInput";
+
+import { Button, ButtonGroup } from "@material-ui/core";
 
 function Dashboard(props) {
   const jobs = useSelector((state) => state.setAllJobsReducer);
@@ -26,6 +31,7 @@ function Dashboard(props) {
   const [toggleForm, setToggleForm] = useState(false);
   const [updateJob, setUpdateJob] = useState(null);
   function handleJobUpdate(id) {
+    setToggleForm(true);
     setUpdateJob({
       id,
     });
@@ -33,82 +39,97 @@ function Dashboard(props) {
 
   return (
     <div>
-      <h2>
-        Total Jobs: {jobs.length}
-        <button className="btn" onClick={() => setToggleForm(true)}>
-          Add Job
-        </button>
-      </h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Job Number</th>
-            <th>Panels </th>
-            <th>Contractor</th>
-            <th>Street Address</th>
-            <th>City</th>
-            <th>State</th>
-            <th>Zip Code</th>
-            <th>Start Date </th>
-            <th>Outside Corners</th>
-            <th>Inside Corners</th>
-            <th>Status</th>
-            <th>Comments</th>
-            <th>Est. Finish Date</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {jobs.map((job) => (
-            <tr key={job.id}>
-              <td>{job.id}</td>
-              <td>{job.panel_sum}</td>
-              <td>{job.contractor}</td>
-              <td>{job.street_address}</td>
-              <td>{job.city}</td>
-              <td>{job.state}</td>
-              <td>{job.zip}</td>
-              <td>
-                <Moment format="YYYY/MM/DD">{job.start_date}</Moment>
-              </td>
-              <td>{job.outside_corners}</td>
-              <td>{job.inside_corners}</td>
-              <td>{job.status}</td>
-              <td>{job.comments}</td>
-              <td>
-                <Moment format="YYYY/MM/DD">{job.finish_date}</Moment>
-              </td>
-              <td>
-                <ButtonGroup>
-                  <Button
-                    color="default"
-                    variant="outlined"
-                    onClick={() => handleDetails(job.id)}
-                  >
-                    Walls
-                  </Button>
+      <h2>Total Jobs: {jobs.length} </h2>
 
-                  <Button
-                    color="default"
-                    variant="outlined"
-                    onClick={() => handleJobUpdate(job.id)}
-                  >
-                    Edit
-                  </Button>
+      <button className="btn" onClick={() => setToggleForm(true)}>
+        Add Job
+      </button>
+      <Card className={"MuiElevatedCard--01"}>
+        <CardHeader
+          className={"MuiCardHeader-root"}
+          title={"Job Details"}
+          subheader={"Panel totals"}
+          classes={{
+            title: "MuiCardHeader-title",
+            subheader: "MuiCardHeader-subheader",
+          }}
+        />
+        <CardContent className={"MuiCardContent-root"}>
+          <div className={"MuiCardContent-inner"}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Job Number</TableCell>
+                  <TableCell>Panels</TableCell>
+                  <TableCell>Outside Corners</TableCell>
+                  <TableCell>Inside Corners</TableCell>
+                  <TableCell>Street Address</TableCell>
+                  <TableCell>City</TableCell>
+                  <TableCell>State</TableCell>
+                  <TableCell>Zip</TableCell>
+                  <TableCell>Start Date</TableCell>
+                  <TableCell>Status </TableCell>
+                  <TableCell>Comments</TableCell>
+                  <TableCell>Pour Date</TableCell>
+                  <TableCell>Actions</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {jobs.map((job) => (
+                  <TableRow key={job.id}>
+                    <TableCell component="th" scope="row">
+                      {job.id}
+                    </TableCell>
+                    <TableCell>{job.panel_sum}</TableCell>
+                    <TableCell>{job.outside_corners}</TableCell>
+                    <TableCell>{job.inside_corners}</TableCell>
+                    <TableCell>{job.street_address}</TableCell>
+                    <TableCell>{job.city}</TableCell>
+                    <TableCell>{job.state}</TableCell>
+                    <TableCell>{job.zip}</TableCell>
+                    <TableCell>
+                      <Moment format="YYYY/MM/DD">{job.start_date}</Moment>
+                    </TableCell>
+                    <TableCell>{job.status}</TableCell>
+                    <TableCell>{job.comments}</TableCell>
+                    <TableCell>
+                      <Moment format="YYYY/MM/DD">{job.finish_date}</Moment>
+                    </TableCell>
+                    <TableCell>
+                      <ButtonGroup>
+                        <Button
+                          color="default"
+                          variant="outlined"
+                          onClick={() => handleDetails(job.id)}
+                        >
+                          Walls
+                        </Button>
 
-                  <Button
-                    variant="outlined"
-                    color="secondary"
-                    onClick={() => handleJobDelete(job.id)}
-                  >
-                    Delete
-                  </Button>
-                </ButtonGroup>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+                        <Button
+                          color="default"
+                          variant="outlined"
+                          onClick={() => handleJobUpdate(job.id)}
+                        >
+                          Edit
+                        </Button>
+
+                        <Button
+                          variant="outlined"
+                          color="secondary"
+                          onClick={() => handleJobDelete(job.id)}
+                        >
+                          Delete
+                        </Button>
+                      </ButtonGroup>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        </CardContent>
+      </Card>
+
       {toggleForm && (
         <>
           <JobInput
@@ -118,9 +139,7 @@ function Dashboard(props) {
           />
         </>
       )}
-      <ElevatedCards02 />
     </div>
   );
 }
-
 export default Dashboard;

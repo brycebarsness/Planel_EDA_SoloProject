@@ -3,8 +3,17 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import Moment from "react-moment";
 import WallInput from "../WallInput/WallInput";
-
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import CardActions from "@material-ui/core/CardActions";
+import Table from "@material-ui/core/Table";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import CardHeader from "@material-ui/core/CardHeader";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
 import { Button, ButtonGroup } from "@material-ui/core";
+import Grid from "@material-ui/core/Grid";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 /*
 
@@ -57,95 +66,209 @@ function DetailsPage() {
   return (
     <div>
       <h2></h2>
-      <table>
-        <tbody>
-          <tr>
-            <th>Job Number</th>
-            <td>{newJob.id}</td>
-          </tr>
-          <tr>
-            <th>User Id</th>
-            <td>{newJob.user_id}</td>
-          </tr>
-          <tr>
-            <th>Contractor</th>
-            <td>{newJob.contractor}</td>
-          </tr>
-          <tr>
-            <th>Street Address</th>
-            <td>{newJob.street_address}</td>
-          </tr>
-          <tr>
-            <th>City</th>
-            <td>{newJob.city}</td>
-          </tr>
-          <tr>
-            <th>State</th>
-            <td>{newJob.state}</td>
-          </tr>
-          <tr>
-            <th>Zip Code</th>
-            <td>{newJob.zip}</td>
-          </tr>
-          <tr>
-            <th>Start Date </th>
-            <Moment format="YYYY/MM/DD">
-              <td>{newJob.start_date}</td>
-            </Moment>
-          </tr>
-          <tr>
-            <th>Outside Corners</th>
-            <td>{newJob.outside_corners}</td>
-          </tr>
-          <tr>
-            <th>Inside Corners</th>
-            <td>{newJob.inside_corners}</td>
-          </tr>
-          <tr>
-            <th>Status</th>
-            <td>{newJob.status}</td>
-          </tr>
-          <tr>
-            <th>Comments</th>
-            <td>{newJob.comments}</td>
-          </tr>
-          <tr>
-            <th>Finish Date</th>
-            <td>
-              <Moment format="YYYY/MM/DD">{newJob.finish_date}</Moment>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <table>
-        <thead>
-          <tr>
-            <th>Panel Size (length)</th>
-            <th>Quantity</th>
-          </tr>
-        </thead>
+      <Grid container alignItems="stretch">
+        <Grid item component={Card} xs>
+          <CardContent>
+            <CardHeader
+              className={"MuiCardHeader-root"}
+              title={"Job Details"}
+              subheader={newJob.contractor}
+              classes={{
+                title: "MuiCardHeader-title",
+                subheader: "MuiCardHeader-subheader",
+              }}
+            />
+            <CardContent className={"MuiCardContent-root"}>
+              <div className={"MuiCardContent-inner"}>
+                <Table>
+                  <TableRow>
+                    <TableHead>Job Number</TableHead>
+                    <TableCell>{newJob.id}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableHead>User Id</TableHead>
+                    <TableCell>{newJob.user_id}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableHead>Contractor</TableHead>
+                    <TableCell>{newJob.contractor}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableHead>Street Address</TableHead>
+                    <TableCell>{newJob.street_address}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableHead>City</TableHead>
+                    <TableCell>{newJob.city}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableHead>State</TableHead>
+                    <TableCell>{newJob.state}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableHead>Zip Code</TableHead>
+                    <TableCell>{newJob.zip}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableHead>Start Date</TableHead>
+                    <TableCell>
+                      <Moment format="YYYY/MM/DD">{newJob.start_date}</Moment>
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableHead>Outside Corners</TableHead>
+                    <TableCell>{newJob.outside_corners}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableHead>Inside Corners</TableHead>
+                    <TableCell>{newJob.inside_corners}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableHead>Status</TableHead>
+                    <TableCell>{newJob.status}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableHead>Comments</TableHead>
+                    <TableCell>{newJob.comments}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableHead>Finish Date</TableHead>
+                    <TableCell>
+                      <Moment format="YYYY/MM/DD">{newJob.finish_date}</Moment>
+                    </TableCell>
+                  </TableRow>
+                </Table>
+              </div>
+            </CardContent>
+          </CardContent>
+        </Grid>
+
+        <Grid item component={Card} xs>
+          <CardHeader
+            className={"MuiCardHeader-root"}
+            title={"Panels"}
+            subheader={"6 ft. Standard"}
+            classes={{
+              title: "MuiCardHeader-title",
+              subheader: "MuiCardHeader-subheader",
+            }}
+          />
+          <CardContent className={"MuiCardContent-root"}>
+            <div className={"MuiCardContent-inner"}>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Panel Size (inches)</TableCell>
+                    <TableCell align-right>Quantity</TableCell>
+                  </TableRow>
+                </TableHead>
+
+                {wallPanelsPerJob.map((wallPanel, i) => (
+                  <TableRow key={i}>
+                    <TableCell>{wallPanel.length}</TableCell>
+                    <TableCell>{wallPanel.sum}</TableCell>
+                  </TableRow>
+                ))}
+              </Table>
+            </div>
+          </CardContent>
+        </Grid>
+
+        <Grid item component={Card} xs>
+          <CardContent>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Wall ID</TableCell>
+                  <TableCell>Wall Length</TableCell>
+                  <TableCell>Actions</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {wallsPerJob.map((wall, i) => (
+                  <TableRow key={wall.id}>
+                    <TableCell>{wall.id}</TableCell>
+                    <TableCell>{wall.length}</TableCell>
+                    <TableCell>
+                      <ButtonGroup>
+                        <Button
+                          color="default"
+                          variant="outlined"
+                          onClick={() => handlePanelDetails(wall.id)}
+                        >
+                          Panels
+                        </Button>
+                        <Button
+                          color="default"
+                          variant="outlined"
+                          onClick={() => handleWallUpdate(wall.id)}
+                        >
+                          Edit
+                        </Button>
+                        <Button
+                          variant="outlined"
+                          color="secondary"
+                          onClick={() => handleWallDelete(wall.id)}
+                        >
+                          Delete
+                        </Button>
+                      </ButtonGroup>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </CardContent>
+          <CardActions>
+            <Button
+              color="default"
+              variant="outlined"
+              onClick={() => setToggleWallForm(true)}
+            >
+              Add Wall
+            </Button>
+            {toggleWallForm && (
+              <>
+                <WallInput
+                  setToggleWallForm={setToggleWallForm}
+                  updateWall={updateWall}
+                  setUpdateWall={setUpdateWall}
+                />
+              </>
+            )}
+          </CardActions>
+        </Grid>
+      </Grid>
+
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>Panel Size (length)</TableCell>
+            <TableCell>Quantity</TableCell>
+          </TableRow>
+        </TableHead>
         {wallPanelsPerJob.map((wallPanel, i) => (
-          <tr key={i}>
-            <td>{wallPanel.length}</td>
-            <td>{wallPanel.sum}</td>
-          </tr>
+          <TableRow key={i}>
+            <TableCell>{wallPanel.length}</TableCell>
+            <TableCell>{wallPanel.sum}</TableCell>
+          </TableRow>
         ))}
-      </table>
-      <table>
-        <thead>
-          <tr>
-            <th>Wall ID</th>
-            <th>Wall Length</th>
-            <th>UPDATE/DELETE</th>
-          </tr>
-        </thead>
-        <tfooter> </tfooter>
-        <tbody>
+      </Table>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>Wall ID</TableCell>
+            <TableCell>Wall Length</TableCell>
+            <TableCell>Actions</TableCell>
+          </TableRow>
+        </TableHead>
+
+        <TableBody>
           {wallsPerJob.map((wall, i) => (
-            <tr key={wall.id}>
-              <td>{wall.id}</td>
-              <td>{wall.length}</td>
-              <td>
+            <TableRow key={wall.id}>
+              <TableCell>{wall.id}</TableCell>
+              <TableCell>{wall.length}</TableCell>
+              <TableCell>
                 <ButtonGroup>
                   <Button
                     color="default"
@@ -169,11 +292,11 @@ function DetailsPage() {
                     Delete
                   </Button>
                 </ButtonGroup>
-              </td>
-            </tr>
+              </TableCell>
+            </TableRow>
           ))}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
       <Button
         color="default"
         variant="outlined"
