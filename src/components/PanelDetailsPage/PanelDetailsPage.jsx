@@ -57,7 +57,7 @@ function PanelDetailsPage(props) {
         <CardHeader
           className={"MuiCardHeader-root"}
           title={"Panel Details"}
-          subheader={"Select Add Panel to Add Panel"}
+          subheader={"Select add panel to add panel"}
           classes={{
             title: "MuiCardHeader-title",
             subheader: "MuiCardHeader-subheader",

@@ -210,7 +210,7 @@ function DetailsPage() {
           <CardHeader
             className={"MuiCardHeader-root"}
             title={"Walls"}
-            subheader={"Select Add Wall to Add Wall "}
+            subheader={"Select add wall to add wall "}
             classes={{
               title: "MuiCardHeader-title",
               subheader: "MuiCardHeader-subheader",
@@ -221,7 +221,7 @@ function DetailsPage() {
               <TableHead>
                 <TableRow>
                   <TableCell>Wall ID</TableCell>
-                  <TableCell>Wall Length</TableCell>
+                  <TableCell>Wall Length(feet)</TableCell>
                   <TableCell>Actions</TableCell>
                 </TableRow>
               </TableHead>
