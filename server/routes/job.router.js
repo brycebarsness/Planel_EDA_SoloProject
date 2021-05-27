@@ -5,46 +5,9 @@ const {
   rejectUnauthenticated,
 } = require("../modules/authentication-middleware");
 
-/**
- * GET route template
- */
-// router.get("/", (req, res) => {
-//   // GET route code here
-// });
-
-/**
- * POST route template
- */
-// router.post("/", (req, res) => {
-//   // POST route code here
-// });
 router.get("/", (req, res) => {
-  // GET route code here
-  id = req.params.id;
-  const queryText = `SELECT 
-	"j"."id", 
-	"j"."user_id",
-	"j"."contractor",
-	"j"."street_address",
-	"j"."city",
-	"j"."state",
-	"j"."zip",
-	"j"."start_date", 
-	"j"."outside_corners", 
-	"j"."inside_corners",
-	"j"."status",
-	"j"."complete", 
-	"j"."comments", 
-	"j"."finish_date", 
-	SUM("wp"."quantity") AS "panel_sum"
-FROM "job" "j"
-INNER JOIN "wall" "w"
-ON "j"."id" = "w"."job_id"
-INNER JOIN "wall_panel" "wp"
-ON "wp"."wall_id" = "w"."id"
-GROUP BY "j"."id";`;
-
-  // `SELECT * FROM "job"`;
+  // GET route to grab all jobs for dashboard
+  const queryText = `SELECT * FROM "job"`;
   pool
     .query(queryText)
     .then((result) => res.send(result.rows))
@@ -55,7 +18,7 @@ GROUP BY "j"."id";`;
 });
 
 router.get("/details/:id", (req, res) => {
-  // GET route code here
+  // GET jobs by id for details page
   id = req.params.id;
   const queryText = `SELECT * FROM "job" WHERE "id" = ${id}`;
   pool
@@ -68,14 +31,14 @@ router.get("/details/:id", (req, res) => {
 });
 
 router.post("/addjob", rejectUnauthenticated, (req, res) => {
-  // POST route code here
+  // POST route, adding a job then returning the newly created job
   console.log(req.body);
   const queryText = `INSERT INTO "job" ("user_id", "contractor", 
   "street_address", "city","state", "zip", "start_date", 
   "outside_corners", "inside_corners", "status", "complete",
    "comments", "finish_date")
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, 
-    $9, $10, $11, $12, $13 ) RETURNING "id";`;
+    $9, $10, $11, $12, $13 ) RETURNING "id";`; // id is selector for next .then call
   pool
     .query(queryText, [
       req.user.id,
@@ -95,7 +58,7 @@ router.post("/addjob", rejectUnauthenticated, (req, res) => {
     .then((result) => {
       const createdJobId = result.rows[0].id;
       console.log("New Job Id:", createdJobId);
-      const queryText = `SELECT * FROM "job" WHERE "id" = $1`;
+      const queryText = `SELECT * FROM "job" WHERE "id" = $1`; //id from above
       pool
         .query(queryText, [createdJobId])
         .then((result) => {
@@ -113,7 +76,7 @@ router.post("/addjob", rejectUnauthenticated, (req, res) => {
 });
 
 router.delete("/delete/:id", (req, res) => {
-  // GET route code here
+  // Delete where id
   const id = Number(req.params.id);
   const queryText = `DELETE FROM "job" WHERE "id" = $1;`;
   pool
@@ -128,7 +91,7 @@ router.delete("/delete/:id", (req, res) => {
     });
 });
 router.put("/:id", (req, res) => {
-  // GET route code here
+  // Edit job, replace info where id
   const newJob = req.body;
   console.log(newJob);
   const id = Number(req.params.id);

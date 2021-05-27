@@ -44,7 +44,7 @@ function DetailsPage() {
   let { id } = useParams();
 
   useEffect(() => {
-    dispatch({ type: "FETCH_ONE_JOB", payload: id });
+    dispatch({ type: "FETCH_ONE_JOB", payload: id }); // runs on load
   }, []);
 
   const handlePanelDetails = (id) => {
@@ -54,14 +54,15 @@ function DetailsPage() {
     // dispatch type delete payload wall_panel_id
     dispatch({ type: "DELETE_WALL", payload: id });
   };
-  const [updateWall, setUpdateWall] = useState(null);
+  const [updateWall, setUpdateWall] = useState(null); // state to open edit
   const handleWallUpdate = (id) => {
-    setToggleWallForm(true);
+    setToggleWallForm(true); // true opens form
     setUpdateWall({
+      // passes id to edit
       id,
     });
   };
-  const [toggleWallForm, setToggleWallForm] = useState(false);
+  const [toggleWallForm, setToggleWallForm] = useState(false); // state to open wall form
   const handleDetailsBack = (id) => {
     history.push(`/user`); // push to details view
   };
@@ -195,7 +196,10 @@ function DetailsPage() {
                   </TableRow>
                 </TableHead>
 
-                {wallPanelsPerJob.map((wallPanel, i) => (
+                {wallPanelsPerJob.map((
+                  wallPanel,
+                  i //adds all wall panels for job to table
+                ) => (
                   <TableRow key={i}>
                     <TableCell>{wallPanel.length}</TableCell>
                     <TableCell>{wallPanel.sum}</TableCell>
@@ -226,7 +230,10 @@ function DetailsPage() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {wallsPerJob.map((wall, i) => (
+                {wallsPerJob.map((
+                  wall,
+                  i // adds all walls for job
+                ) => (
                   <TableRow key={wall.id}>
                     <TableCell>{wall.id}</TableCell>
                     <TableCell>{wall.length}</TableCell>
@@ -235,14 +242,14 @@ function DetailsPage() {
                         <Button
                           color="default"
                           variant="outlined"
-                          onClick={() => handlePanelDetails(wall.id)}
+                          onClick={() => handlePanelDetails(wall.id)} //sends to panels details
                         >
                           Panels
                         </Button>
                         <Button
                           color="default"
                           variant="outlined"
-                          onClick={() => handleWallUpdate(wall.id)}
+                          onClick={() => handleWallUpdate(wall.id)} // passes wall id to edit funtion and opens form
                         >
                           Edit
                         </Button>
@@ -265,7 +272,7 @@ function DetailsPage() {
               Add Wall
             </button>
 
-            {toggleWallForm && (
+            {toggleWallForm && ( // add/edit wall form, pass in props for form
               <>
                 <WallInput
                   setToggleWallForm={setToggleWallForm}

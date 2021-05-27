@@ -28,18 +28,19 @@ function Dashboard(props) {
     dispatch({ type: "DELETE_JOB", payload: id });
   };
 
-  const [toggleForm, setToggleForm] = useState(false);
-  const [updateJob, setUpdateJob] = useState(null);
+  const [toggleForm, setToggleForm] = useState(false); //state to display form
+  const [updateJob, setUpdateJob] = useState(null); // state to allow job edit
   function handleJobUpdate(id) {
-    setToggleForm(true);
+    // pass in id from form
+    setToggleForm(true); // when true = editable
     setUpdateJob({
+      //pass in id
       id,
     });
   }
 
   return (
     <div>
-      {/* <h2>Select Add Job to add job</h2> */}
       <button className="btn" onClick={() => setToggleForm(true)}>
         Add Job
       </button>
@@ -59,7 +60,6 @@ function Dashboard(props) {
               <TableHead>
                 <TableRow>
                   <TableCell>Job Number</TableCell>
-                  <TableCell>Panels</TableCell>
                   <TableCell>Outside Corners</TableCell>
                   <TableCell>Inside Corners</TableCell>
                   <TableCell>Street Address</TableCell>
@@ -74,12 +74,13 @@ function Dashboard(props) {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {jobs.map((job) => (
+                {jobs.map((
+                  job // display jobs in the table
+                ) => (
                   <TableRow key={job.id}>
                     <TableCell component="th" scope="row">
                       {job.id}
                     </TableCell>
-                    <TableCell>{job.panel_sum}</TableCell>
                     <TableCell>{job.outside_corners}</TableCell>
                     <TableCell>{job.inside_corners}</TableCell>
                     <TableCell>{job.street_address}</TableCell>
@@ -99,7 +100,7 @@ function Dashboard(props) {
                         <Button
                           color="default"
                           variant="outlined"
-                          onClick={() => handleDetails(job.id)}
+                          onClick={() => handleDetails(job.id)} // pushes to details to add wall etc
                         >
                           Walls
                         </Button>
@@ -107,7 +108,7 @@ function Dashboard(props) {
                         <Button
                           color="default"
                           variant="outlined"
-                          onClick={() => handleJobUpdate(job.id)}
+                          onClick={() => handleJobUpdate(job.id)} //makes job editable and opens form
                         >
                           Edit
                         </Button>
@@ -115,7 +116,7 @@ function Dashboard(props) {
                         <Button
                           variant="outlined"
                           color="secondary"
-                          onClick={() => handleJobDelete(job.id)}
+                          onClick={() => handleJobDelete(job.id)} //passes job id for delete
                         >
                           Delete
                         </Button>
@@ -129,7 +130,8 @@ function Dashboard(props) {
         </CardContent>
       </Card>
 
-      {toggleForm && (
+      {toggleForm && ( //form opened on add new job or edit job,
+        //pass in props to close form and end edit
         <>
           <JobInput
             setToggleForm={setToggleForm}

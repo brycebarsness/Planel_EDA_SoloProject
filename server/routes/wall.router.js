@@ -3,7 +3,7 @@ const pool = require("../modules/pool");
 const router = express.Router();
 
 router.get("/:id", (req, res) => {
-  // GET route code here
+  // GET one wall for panel details
   const queryText = `SELECT * FROM "wall" WHERE "id" = $1`;
   pool
     .query(queryText, [req.params.id])
@@ -15,16 +15,16 @@ router.get("/:id", (req, res) => {
 });
 
 router.post("/addWall", (req, res) => {
-  // POST route code here
+  // POST to add new wall, returning wall that's created
   console.log(req.body);
   const queryText = `INSERT INTO "wall" ("job_id", "length" )
-    VALUES ($1, $2 ) RETURNING "id";`;
+    VALUES ($1, $2 ) RETURNING "id";`; // this id selects wall to return below
   pool
     .query(queryText, [req.body.job_id, req.body.length])
     .then((result) => {
       const createdWallId = result.rows[0].id;
       console.log("New Wall Id:", createdWallId);
-      const queryText = `SELECT * FROM "wall" WHERE "id" = $1`;
+      const queryText = `SELECT * FROM "wall" WHERE "id" = $1`; //id from above
       pool
         .query(queryText, [createdWallId])
         .then((result) => {
@@ -42,7 +42,7 @@ router.post("/addWall", (req, res) => {
 });
 
 router.get("/job/:id", (req, res) => {
-  // GET route code here
+  // GET all wall for a job, selected by job id
   const queryText = `SELECT * FROM "wall" WHERE "job_id" = $1`;
   pool
     .query(queryText, [req.params.id])
@@ -54,7 +54,7 @@ router.get("/job/:id", (req, res) => {
 });
 
 router.delete("/delete/:id", (req, res) => {
-  // GET route code here
+  // Delete wall by id, make sure id being passed in is a Number
   const id = Number(req.params.id);
   const queryText = `DELETE FROM "wall" WHERE "id" = $1;`;
   pool
@@ -70,7 +70,7 @@ router.delete("/delete/:id", (req, res) => {
 });
 
 router.put("/:id", (req, res) => {
-  // GET route code here
+  // Edit wall length, select by id
   const newLength = req.body;
   console.log(newLength);
   const id = Number(req.params.id);

@@ -3,7 +3,8 @@ const pool = require("../modules/pool");
 const router = express.Router();
 
 router.get("/:id", (req, res) => {
-  // GET route code here
+  // GET all wall_panel instances, by wall.
+  // Each (panel size and length) is an instance.
   const queryText = `SELECT * FROM "wall_panel" WHERE "wall_id" = $1`;
   pool
     .query(queryText, [req.params.id])
@@ -15,16 +16,16 @@ router.get("/:id", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-  // POST route code here
+  // POST new wall panel instance, then return by id
   console.log(req.body);
   const queryText = `INSERT INTO "wall_panel" ("wall_id", "panel_id", "quantity")
-    VALUES ($1, $2, $3 ) RETURNING "id";`;
+    VALUES ($1, $2, $3 ) RETURNING "id";`; // this id is the selector for below
   pool
     .query(queryText, [req.body.wall_id, req.body.panel_id, req.body.quantity])
     .then((result) => {
       const createdWallPanelId = result.rows[0].id;
       console.log("New WallPanel Id:", createdWallPanelId);
-      const queryText = `SELECT * FROM "wall_panel" WHERE "id" = $1`;
+      const queryText = `SELECT * FROM "wall_panel" WHERE "id" = $1`; //id from above
       pool
         .query(queryText, [createdWallPanelId])
         .then((result) => {
@@ -41,7 +42,7 @@ router.post("/", (req, res) => {
     });
 });
 router.get("/job/:id", (req, res) => {
-  // GET route code here
+  // GET wall panel instance by job id, all panel sizes and quantity for job
   const queryText = `SELECT
 "l"."length",
 	SUM("p"."quantity")
@@ -63,7 +64,7 @@ INNER JOIN "panel" "l"
     });
 });
 router.get("/wall/:id", (req, res) => {
-  // GET route code here
+  // GET all wall panel instances by wall id, all panel size and quantity for wall
   const queryText = `SELECT
   "p"."id" AS "wall_panel_id",
 "l"."length" AS "panel_length",
@@ -86,7 +87,7 @@ INNER JOIN "panel" "l"
 });
 
 router.delete("/delete/:id", (req, res) => {
-  // GET route code here
+  // Delete wall panel instance by id
   const id = Number(req.params.id);
   const queryText = `DELETE FROM "wall_panel" WHERE "id" = $1;`;
   pool
@@ -102,7 +103,7 @@ router.delete("/delete/:id", (req, res) => {
 });
 
 router.put("/:id", (req, res) => {
-  // GET route code here
+  // Edit wall panel instance by id
   const newValues = req.body;
   console.log(newValues);
   const id = Number(req.params.id);

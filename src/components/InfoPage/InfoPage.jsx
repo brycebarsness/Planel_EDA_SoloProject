@@ -7,7 +7,14 @@ import React from "react";
 function InfoPage() {
   return (
     <div className="container">
-      <p>Info Page</p>
+      <p>
+        Most concrete foundations are made by assembling large aluminum form
+        panels. Calculating how many are needed for a job, and keeping track of
+        how many are in the yard, are two challenges any company using this
+        build method will face. Planel is an application that provides a means
+        of documenting and sharing how many panels will be needed for a job, as
+        well as tracking how many are in use.
+      </p>
     </div>
   );
 }

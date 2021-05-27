@@ -44,7 +44,7 @@ function DisplayOneJob() {
   const displayWallPanels = useSelector((state) => state.setWallPanelsReducer);
   dispatch({ type: "FETCH_WALL_PANELS", payload: newJob.id });
   dispatch({ type: "FETCH_WALL_PANEL", payload: displayWallPanel.id });
-
+  // speed entry, all input on one page
   return (
     <div>
       <h2></h2>

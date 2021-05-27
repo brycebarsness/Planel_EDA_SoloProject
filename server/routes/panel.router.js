@@ -3,6 +3,7 @@ const router = express.Router();
 const pool = require("../modules/pool");
 
 router.get("/", (req, res) => {
+  //route to get all panels in db, order by size
   const queryText = `SELECT * FROM "panel" ORDER BY "length";`;
   pool
     .query(queryText)
@@ -13,7 +14,7 @@ router.get("/", (req, res) => {
     });
 });
 router.post("/", (req, res) => {
-  // GET route code here
+  // router to add new panel
   const queryText = `INSERT INTO "panel"`;
   pool
     .query(queryText, [req.params.id])
